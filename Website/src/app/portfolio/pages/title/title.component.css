@@ -1,0 +1,19 @@
+#space-background {
+    z-index: -1;
+    background-color: #041d55;
+    position: fixed;
+    left: 0;
+    top: 0;
+}
+
+#content {
+    color: white;
+    text-align: left;
+}
+
+#name {
+    font-family: 'Nexa Heavy';
+    font-size: 4rem;
+    margin-bottom: -1rem;
+}
+
