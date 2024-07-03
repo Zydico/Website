@@ -1,0 +1,20 @@
+.side-nav-item {
+    width: 100%;
+    color: var(--white);
+    font-size: 1rem;
+    font-family: 'Nexa Regular';
+    background-color: var(--nav-unselected);
+    padding: 15px;
+    box-sizing: border-box;
+    margin-bottom: 1px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.side-nav-item:hover {
+    background-color: var(--nav-hover);
+}
+
+.selected {
+    background-color: var(--nav-selected);
+}

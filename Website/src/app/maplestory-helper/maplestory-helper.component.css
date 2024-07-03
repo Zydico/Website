@@ -1,0 +1,27 @@
+#background {
+    position:fixed;
+    background-color: var(--lightgray);
+    z-index: -1;
+}
+
+#side-nav {
+    background-color: var(--nav-background);
+    width: var(--maplestory-nav-width);
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+}
+
+#page {
+    margin-left: var(--maplestory-nav-width);
+}
+
+#title {
+    color: var(--white);
+    font-family: 'Nexa Heavy';
+    font-size: 1.25rem;
+    margin-top: 10px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}

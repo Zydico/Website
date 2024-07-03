@@ -1,0 +1,24 @@
+import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
+
+@Component({
+  selector: 'app-project',
+  standalone: true,
+  imports: [],
+  templateUrl: './project.component.html',
+  styleUrl: './project.component.css'
+})
+export class ProjectComponent {
+  @Input() name: string;
+  @Input() description: string;
+  @Input() link: string;
+
+  constructor(private router: Router) {
+  }
+
+  changePage(): void {
+    if (this.link) {
+      this.router.navigate(['maplestory-helper']);
+    }
+  }
+}
