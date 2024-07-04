@@ -1,1 +1,39 @@
-<p>boss-crystals works!</p>
+<div id="menu">
+
+</div>
+<div id="table">
+    <div>
+        <div class="cell boss-header vertical-align">
+            Boss
+        </div>
+        <div class="cell boss-row vertical-align" *ngFor="let boss of bosses; let i=index">
+            {{boss.name}}
+        </div>
+    </div>
+    <div>
+        <div class="cell meso-header vertical-align">
+            Mesos
+        </div>
+        <div class="cell meso-row vertical-align" *ngFor="let boss of bosses; let i=index">
+            {{numberWithCommas(boss.meso)}}
+        </div>
+    </div>
+    <form [formGroup]="bossForm">
+        <div formArrayName="columns" *ngFor="let character of columns.controls; let i = index">
+            <ng-container [formGroupName]="i">
+                <div class="cell character-header vertical-align">
+                    <input type="text" class="character-input" placeholder="Name" formControlName="character" maxlength="12">
+                    <div class="hover-menu">
+                        <div class="clone button" (click)="clone(i)">Clone</div>
+                    </div>
+                </div>
+                <div formArrayName="character_bosses" *ngFor="let boss of character.get('character_bosses')['controls']; let j = index">
+                    <div class="cell character-row vertical-align" [formGroupName]="j">
+                        <input type="checkbox" formControlName="checked">
+                        <input type="number" formControlName="party_size" min="1" max="6" class="party_size" (focusout)="partyFix($event)">
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </form>
+</div>

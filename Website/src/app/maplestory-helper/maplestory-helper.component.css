@@ -5,7 +5,7 @@
 }
 
 #side-nav {
-    background-color: var(--nav-background);
+    background-color: var(--maplestory-nav-background);
     width: var(--maplestory-nav-width);
     height: 100vh;
     position: fixed;

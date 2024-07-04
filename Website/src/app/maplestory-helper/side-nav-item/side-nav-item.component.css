@@ -3,7 +3,7 @@
     color: var(--white);
     font-size: 1rem;
     font-family: 'League Spartan';
-    background-color: var(--nav-unselected);
+    background-color: var(--maplestory-nav-unselected);
     padding: 15px;
     box-sizing: border-box;
     margin-bottom: 1px;
@@ -12,9 +12,9 @@
 }
 
 .side-nav-item:hover {
-    background-color: var(--nav-hover);
+    background-color: var(--maplestory-nav-hover);
 }
 
 .selected {
-    background-color: var(--nav-selected);
+    background-color: var(--maplestory-nav-selected);
 }

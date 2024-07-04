@@ -1,0 +1,103 @@
+#table {
+    margin-left: 40px;
+    margin-bottom: 40px;
+    display: flex;
+    font-family: 'League Spartan';
+    font-size: 1rem;
+}
+
+.cell {
+    padding-left: 10px;
+    height: 30px;
+    border: 1px solid var(--table-border);
+    box-sizing: border-box;
+    margin-left: -1px;
+    margin-top: -1px;
+}
+
+form {
+    display: flex;
+}
+
+.boss-header, .meso-header {
+    background-color: var(--table-header-background-dark);
+    color: var(--white);
+}
+
+.boss-row, .meso-row {
+    background-color: var(--table-row-background-dark);
+    color: var(--maplestory-dark-font);
+}
+
+.boss-header, .boss-row {
+    width: 100px;
+}
+
+.meso-header, .meso-row {
+    width: 130px;
+}
+
+.character-header, .character-row {
+    width: 110px;
+}
+
+.character-input {
+    width: 90px;
+    font-family: 'League Spartan';
+    padding-left: 5px;
+    box-sizing: border-box;
+    outline: none;
+    color: var(--maplestory-dark-font);
+}
+
+.character-header {
+    background-color: var(--table-header-background-light);
+    position: relative;
+}
+
+.character-row {
+    background-color: var(--table-row-background-light);
+}
+
+.party_size {
+    font-family: 'League Spartan';
+    box-sizing: border-box;
+    outline: none;
+    color: var(--maplestory-dark-font);
+    width: 50px;
+    margin-left: 10px;
+    padding-left: 10px;
+}
+
+.hover-menu {
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 100%;
+    box-sizing: border-box;
+}
+
+.character-header:hover .hover-menu {
+    display: block;
+}
+
+.clone:hover {
+    background-color: var(--maplestory-clone-hover-color);
+}
+
+.button {
+    cursor: pointer;
+    user-select: none;
+    font-family: 'League Spartan';
+    font-size: 0.75rem;
+    background-color: var(--maplestory-clone-color);
+    height: 20px;
+    width: 40px;
+    border-radius: 5px;
+    color: var(--white);
+    display: inline-block;
+    text-align: center;
+    padding-top: 5px;
+}
