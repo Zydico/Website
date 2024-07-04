@@ -19,9 +19,9 @@
 
 #title {
     color: var(--white);
-    font-family: 'Nexa Heavy';
+    font-family: 'League Spartan';
     font-size: 1.25rem;
-    margin-top: 10px;
-    margin-left: 20px;
+    margin-top: 20px;
     margin-bottom: 20px;
+    text-align: center;
 }

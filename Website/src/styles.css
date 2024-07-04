@@ -37,7 +37,7 @@ html, body {
     justify-content: left;
 }
 
-@font-face {
+/* @font-face {
     font-family: 'Nexa Heavy';
     src: url('/Nexa-Heavy.ttf');
 }
@@ -45,4 +45,4 @@ html, body {
 @font-face {
     font-family: 'Nexa Regular';
     src: url('/Nexa-Regular.otf');
-}
+} */

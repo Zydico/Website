@@ -12,9 +12,9 @@
 }
 
 #name {
-    font-family: 'Nexa Heavy';
+    font-family: 'League Spartan';
     font-size: 4rem;
-    margin-bottom: -1rem;
+    margin-bottom: -0.75rem;
 }
 
 #name-divider {
@@ -25,7 +25,7 @@
 }
 
 #occupation {
-    font-family: 'Nexa Regular';
+    font-family: 'League Spartan';
     font-size: 1.75rem;
 }
 
