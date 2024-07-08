@@ -53,7 +53,7 @@
         <div id="income-header">Weekly Income</div>
         <div id="bossing-header">Bossing</div>
         <div *ngFor="let character of columns.controls; let i = index" class="results-character">
-            {{character.get('character').value ? character.get('character').value : 'Unnamed character (column ' + (i+1) + ')' + ': ' + calculateIncome(i)}}
+            {{(character.get('character').value ? character.get('character').value : 'Unnamed character (column ' + (i+1) + ')') + ': ' + calculateIncome(i)}}
         </div>
         <div id="total-header">Total: {{calculateTotalIncome()}}</div>
     </div>

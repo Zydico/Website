@@ -166,7 +166,7 @@ export class BossCrystalsComponent implements OnInit {
         crystals++;
       }
     }
-    return this.numberWithCommas(Math.floor(total)) + ' [ Crystals: ' + crystals + ' ]';
+    return this.numberWithCommas(Math.floor(total)) + ' Mesos [ Crystals: ' + crystals + ' ]';
   }
 
   calculateTotalIncome() {
@@ -183,7 +183,7 @@ export class BossCrystalsComponent implements OnInit {
         }
       }
     }
-    return this.numberWithCommas(Math.floor(total)) + ' [ Crystals: ' + crystals + ' / 180 ]';
+    return this.numberWithCommas(Math.floor(total)) + ' Mesos [ Crystals: ' + crystals + ' / 180 ]';
   }
 
   // Returns the mesos for a boss divided by the party size
