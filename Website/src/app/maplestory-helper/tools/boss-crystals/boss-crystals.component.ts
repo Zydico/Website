@@ -158,17 +158,20 @@ export class BossCrystalsComponent implements OnInit {
     let column = this.columns.at(index);
     let character_bosses = column.get('character_bosses') as FormArray;
     let total = 0;
+    let crystals = 0;
     for (let row of character_bosses.controls) {
       if (row.value.checked) {
         let result = this.bosses.find(boss => boss.name === row.value.name);
         total += result.meso / row.value.party_size;
+        crystals++;
       }
     }
-    return this.numberWithCommas(Math.floor(total));
+    return this.numberWithCommas(Math.floor(total)) + ' [ Crystals: ' + crystals + ' ]';
   }
 
   calculateTotalIncome() {
     let total = 0;
+    let crystals = 0;
     for (let i = 0; i < this.columns.length; i++) {
       let column = this.columns.at(i);
       let character_bosses = column.get('character_bosses') as FormArray;
@@ -176,10 +179,11 @@ export class BossCrystalsComponent implements OnInit {
         if (row.value.checked) {
           let result = this.bosses.find(boss => boss.name === row.value.name);
           total += result.meso / row.value.party_size;
+          crystals++;
         }
       }
     }
-    return this.numberWithCommas(Math.floor(total));
+    return this.numberWithCommas(Math.floor(total)) + ' [ Crystals: ' + crystals + ' / 180 ]';
   }
 
   // Returns the mesos for a boss divided by the party size

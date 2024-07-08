@@ -19,7 +19,6 @@
 
 #instructions {
     flex: 0 0 100%;
-    margin-bottom: 10px;
 }
 
 .cell {
@@ -129,6 +128,7 @@ form {
     padding-left: 10px;
     padding-right: 10px;
     margin-right: 10px;
+    margin-top: 10px;
 }
 
 .add:hover {
