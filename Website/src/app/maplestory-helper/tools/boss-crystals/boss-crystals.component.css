@@ -138,13 +138,13 @@ form {
 #income-header {
     font-size: 1.5rem;
     font-weight: bold;
-    margin-bottom: 5px;
 }
 
-#bossing-header {
+#bossing-header, #extra-header {
     font-size: 1.25rem;
     font-weight: bold;
     margin-bottom: 5px;
+    margin-top: 10px;
 }
 
 .results-character {
@@ -189,4 +189,25 @@ input[disabled] {
 
 .row-darken-right {
     background-color: var(--table-row-background-light-alternate);
+}
+
+label {
+    margin-left: 5px;
+    margin-top: 3px;
+    user-select: none;
+}
+
+.extra-income {
+    flex: 0 0 100%;
+}
+
+.extra-income-container {
+    flex-wrap: wrap;
+}
+
+#level {
+    margin-left: 5px;
+    margin-bottom: 5px;
+    width: 50px;
+    padding-left: 5px;
 }

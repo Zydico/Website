@@ -55,6 +55,23 @@
         <div *ngFor="let character of columns.controls; let i = index" class="results-character">
             {{(character.get('character').value ? character.get('character').value : 'Unnamed character (column ' + (i+1) + ')') + ': ' + calculateIncome(i)}}
         </div>
+        <div id="extra-header">Extra Income</div>
+        <form [formGroup]="extraForm">
+            <div class="extra-income-container">
+                <div class="extra-income">
+                    <label for="level">Highest Level</label>
+                    <input type="number" formControlName="highest_level" min="1" max="300" id="level" name="level" (focusout)="levelFix($event)">
+                </div>
+                <div class="extra-income">
+                    <input type="checkbox" id="ursus" name="ursus" formControlName="ursus">
+                    <label for="ursus">Ursus <span *ngIf="extraForm.get('ursus').value">{{ '(' + numberWithCommas(getUrsus()) + ' Mesos)' }}</span></label>
+                </div>
+                <div class="extra-income">
+                    <input type="checkbox" id="maple-tour" name="maple-tour" formControlName="maple_tour">
+                    <label for="maple-tour">Maple Tour <span *ngIf="extraForm.get('maple_tour').value">{{ '(' + numberWithCommas(getMapleTour()) + ' Mesos)' }}</span></label>
+                </div>
+            </div>
+        </form>
         <div id="total-header">Total: {{calculateTotalIncome()}}</div>
     </div>
 </div>

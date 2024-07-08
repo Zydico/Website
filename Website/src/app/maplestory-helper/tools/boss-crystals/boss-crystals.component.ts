@@ -1,11 +1,11 @@
-import { NgClass, NgFor } from '@angular/common';
+import { NgClass, NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-boss-crystals',
   standalone: true,
-  imports: [NgFor, ReactiveFormsModule, NgClass],
+  imports: [NgFor, ReactiveFormsModule, NgClass, NgIf],
   templateUrl: './boss-crystals.component.html',
   styleUrl: './boss-crystals.component.css'
 })
@@ -56,6 +56,11 @@ export class BossCrystalsComponent implements OnInit {
   ]
 
   bossForm!: FormGroup;
+  extraForm: FormGroup = this.formBuilder.group({
+    ursus: this.formBuilder.control(true),
+    maple_tour: this.formBuilder.control(true),
+    highest_level: this.formBuilder.control(280),
+  })
 
   constructor(private readonly formBuilder: FormBuilder) {}
 
@@ -169,6 +174,16 @@ export class BossCrystalsComponent implements OnInit {
     return this.numberWithCommas(Math.floor(total)) + ' Mesos [ Crystals: ' + crystals + ' ]';
   }
 
+  getUrsus(): number {
+    let ursus = Math.round(this.extraForm.get('highest_level').value * 138206.25 * 3 * 7);
+    return ursus;
+  }
+
+  getMapleTour(): number {
+    let tour = 24510668 * 14;
+    return tour;
+  }
+
   calculateTotalIncome() {
     let total = 0;
     let crystals = 0;
@@ -182,6 +197,12 @@ export class BossCrystalsComponent implements OnInit {
           crystals++;
         }
       }
+    }
+    if (this.extraForm.get('ursus').value && this.extraForm.get('highest_level').value) {
+      total += this.getUrsus();
+    }
+    if (this.extraForm.get('maple_tour').value) {
+      total += this.getMapleTour();
     }
     return this.numberWithCommas(Math.floor(total)) + ' Mesos [ Crystals: ' + crystals + ' / 180 ]';
   }
@@ -206,6 +227,18 @@ export class BossCrystalsComponent implements OnInit {
     }
     if (value > 6) {
       target.value = '6';
+    }
+  }
+
+  // Limits level size to between 1 and 300
+  levelFix(event: Event) {
+    let target = event.target as HTMLInputElement;
+    let value = parseInt(target.value);
+    if (value < 1) {
+      target.value = '1';
+    }
+    if (value > 300) {
+      target.value = '300';
     }
   }
   
