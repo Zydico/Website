@@ -1,18 +1,34 @@
-#table {
-    margin-left: 40px;
-    margin-bottom: 40px;
+#menu, #results {
+    background-color: white;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+#menu {
     display: flex;
-    font-family: 'League Spartan';
-    font-size: 1rem;
+    flex-wrap: wrap;
+}
+
+#table {
+    display: flex;
+}
+
+#menu, #table {
+    margin-bottom: 40px;
+}
+
+#instructions {
+    flex: 0 0 100%;
+    margin-bottom: 10px;
 }
 
 .cell {
     padding-left: 10px;
     height: 30px;
-    border: 1px solid var(--table-border);
     box-sizing: border-box;
-    margin-left: -1px;
-    margin-top: -1px;
+    margin-right: 1px;
+    margin-bottom: 1px;
+    position: relative;
 }
 
 form {
@@ -43,7 +59,6 @@ form {
 
 .character-input {
     width: 90px;
-    font-family: 'League Spartan';
     padding-left: 5px;
     box-sizing: border-box;
     outline: none;
@@ -60,7 +75,6 @@ form {
 }
 
 .party_size {
-    font-family: 'League Spartan';
     box-sizing: border-box;
     outline: none;
     color: var(--maplestory-dark-font);
@@ -80,24 +94,91 @@ form {
 }
 
 .character-header:hover .hover-menu {
-    display: block;
+    display: flex;
+    justify-content: space-between;
+}
+
+.clone {
+    background-color: var(--maplestory-add-color);
 }
 
 .clone:hover {
-    background-color: var(--maplestory-clone-hover-color);
+    background-color: var(--maplestory-add-hover-color);
+}
+
+.delete {
+    background-color: var(--maplestory-delete-color);
+}
+
+.delete:hover {
+    background-color: var(--maplestory-delete-hover-color);
 }
 
 .button {
-    cursor: pointer;
-    user-select: none;
-    font-family: 'League Spartan';
-    font-size: 0.75rem;
-    background-color: var(--maplestory-clone-color);
-    height: 20px;
-    width: 40px;
-    border-radius: 5px;
+    font-size: 0.8rem;
+    height: 25px;
+    width: 50px;
     color: var(--white);
+}
+
+.add {
+    background-color: var(--maplestory-add-color);
+    width: auto;
+    height: 30px;
+    font-size: 1rem;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-right: 10px;
+}
+
+.add:hover {
+    background-color: var(--maplestory-add-hover-color);
+}
+
+#income-header {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+#bossing-header {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.results-character {
+    font-size: 1rem;
+}
+
+.speech-bubble {
+    position: absolute;
+    top: -10px;
+    left: calc(100% - 10px);
+    background-color: var(--white);
+    white-space: nowrap;
+    padding: 5px;
+    border: 1px solid var(--table-header-background-dark);
+    display: none;
+    z-index: 100;
+}
+
+.cell:hover .speech-bubble {
+    display: flex;
+    pointer-events: none;
+}
+
+#total-header {
+    font-size: 1.25rem;
+    font-weight: bold;
+    background-color: var(--maplestory-blue);
     display: inline-block;
-    text-align: center;
-    padding-top: 5px;
+    color: var(--white);
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+input[disabled] {
+    filter: brightness(0.6);
 }

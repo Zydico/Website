@@ -5,7 +5,7 @@
 }
 
 #side-nav {
-    background-color: var(--maplestory-nav-background);
+    background-color: var(--darkgray);
     width: var(--maplestory-nav-width);
     height: 100vh;
     position: fixed;
@@ -19,9 +19,9 @@
 
 #title {
     color: var(--white);
-    font-family: 'League Spartan';
     font-size: 1.25rem;
     margin-top: 20px;
     margin-bottom: 20px;
     text-align: center;
+    font-weight: bold;
 }

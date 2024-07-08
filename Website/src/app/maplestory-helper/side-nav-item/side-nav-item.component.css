@@ -2,19 +2,19 @@
     width: 100%;
     color: var(--white);
     font-size: 1rem;
-    font-family: 'League Spartan';
-    background-color: var(--maplestory-nav-unselected);
-    padding: 15px;
+    padding: 14px;
     box-sizing: border-box;
+    background-color: var(--maplestory-nav-button-dark);
     margin-bottom: 1px;
     cursor: pointer;
     user-select: none;
 }
 
 .side-nav-item:hover {
-    background-color: var(--maplestory-nav-hover);
+    background-color: var(--maplestory-nav-button-light);
 }
 
 .selected {
-    background-color: var(--maplestory-nav-selected);
+    padding-left: 25px;
+    background-color: var(--maplestory-nav-button-light);
 }

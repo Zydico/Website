@@ -11,20 +11,20 @@ import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Reacti
 })
 export class BossCrystalsComponent implements OnInit {
   bosses = [
-    {name: 'Hilla', meso: 56250000},
-    {name: 'CPB', meso: 64000000},
-    {name: 'NCyg', meso: 72250000},
-    {name: 'CQueen', meso: 81000000},
-    {name: 'CVonBon', meso: 81000000},
-    {name: 'CPierre', meso: 81000000},
-    {name: 'CZak', meso: 81000000},
-    {name: 'PNo', meso: 81000000},
-    {name: 'HMag', meso: 95062500},
-    {name: 'CVel', meso: 105062500},
-    {name: 'CPap', meso: 132250000},
-    {name: 'Akechi', meso: 144000000},
-    {name: 'NLotus', meso: 162562500, shared: ['HLotus']},
-    {name: 'NDamien', meso: 169000000, shared: ['HDamien']},
+    {name: 'Hilla', meso: 56250000, preset: ['cra', 'akechi', 'nlomien']},
+    {name: 'CPB', meso: 64000000, preset: ['cra', 'akechi', 'nlomien']},
+    {name: 'NCyg', meso: 72250000, preset: ['cra', 'akechi', 'nlomien']},
+    {name: 'CQueen', meso: 81000000, preset: ['cra', 'akechi', 'nlomien']},
+    {name: 'CVonBon', meso: 81000000, preset: ['cra', 'akechi', 'nlomien']},
+    {name: 'CPierre', meso: 81000000, preset: ['cra', 'akechi', 'nlomien']},
+    {name: 'CZak', meso: 81000000, preset: ['cra', 'akechi', 'nlomien']},
+    {name: 'PNo', meso: 81000000, preset: ['cra', 'akechi', 'nlomien']},
+    {name: 'HMag', meso: 95062500, preset: ['cra', 'akechi', 'nlomien']},
+    {name: 'CVel', meso: 105062500, preset: ['cra', 'akechi', 'nlomien']},
+    {name: 'CPap', meso: 132250000, preset: ['akechi', 'nlomien']},
+    {name: 'Akechi', meso: 144000000, preset: ['akechi', 'nlomien']},
+    {name: 'NLotus', meso: 162562500, shared: ['HLotus'], preset: ['nlomien']},
+    {name: 'NDamien', meso: 169000000, shared: ['HDamien'], preset: ['nlomien']},
     {name: 'NSlime', meso: 171610000, shared: ['CSlime']},
     {name: 'ELucid', meso: 175562500, shared: ['NLucid', 'HLucid']},
     {name: 'NLucid', meso: 203062500, shared: ['ELucid', 'HLucid']},
@@ -32,7 +32,7 @@ export class BossCrystalsComponent implements OnInit {
     {name: 'NGloom', meso: 248062500, shared: ['CGloom']},
     {name: 'NDarknell', meso: 264062500, shared: ['HDarknell']},
     {name: 'HDamien', meso: 351562500, shared: ['NDamien']},
-    {name: 'HLotus', meso: 370562500, shared: ['HLotus']},
+    {name: 'HLotus', meso: 370562500, shared: ['NLotus']},
     {name: 'HLucid', meso: 400000000, shared: ['ELucid', 'NLucid']},
     {name: 'HWill', meso: 441000000, shared: ['NWill']},
     {name: 'NVHilla', meso: 447600000, shared: ['HVHilla']},
@@ -70,28 +70,112 @@ export class BossCrystalsComponent implements OnInit {
 
   clone(index: number) {
     let reference_column = this.columns.at(index);
-    this.columns.push(this.formBuilder.group(reference_column.getRawValue()));
+    let copy_column = this.formBuilder.group({
+      character: this.formBuilder.control(reference_column.get('character').value),
+      character_bosses: this.formBuilder.array([])
+    })
+    let reference_character_bosses = reference_column.get('character_bosses') as FormArray;
+    let copy_character_bosses = copy_column.get('character_bosses') as FormArray;
+    for (let row of reference_character_bosses.controls) {
+      let copy_row = this.formBuilder.group({
+        name: this.formBuilder.control(row.value.name),
+        checked: this.formBuilder.control(row.value.checked),
+        party_size: this.formBuilder.control(row.value.party_size)
+      })
+      let result = this.bosses.find(boss => boss.name === row.value.name);
+      if (result.shared) {
+        this.addCheckboxCheck(copy_character_bosses, copy_row, result.shared);
+      }
+      copy_character_bosses.push(copy_row);
+    }
+    for (let row of copy_character_bosses.controls) {
+      let result = this.bosses.find(boss => boss.name === row.value.name);
+      if (result.shared && row.value.checked) {
+        this.triggerCheckboxCheck(copy_character_bosses, result.shared, row.value.checked);
+      }
+    }
+    this.columns.push(copy_column);
+  }
+  
+  delete(index: number) {
+    this.columns.removeAt(index);
   }
 
-  addColumn() {
+  addColumn(preset: string = '') {
     let column = this.formBuilder.group({
       character: this.formBuilder.control(''),
       character_bosses: this.formBuilder.array([])
     });
     let character_bosses = column.get('character_bosses') as FormArray;
+     
     for (let boss of this.bosses) {
       let row = this.formBuilder.group({
         name: this.formBuilder.control(boss.name),
-        checked: this.formBuilder.control(false),
+        checked: this.formBuilder.control(boss.preset && boss.preset.includes(preset)),
         party_size: this.formBuilder.control(1)
       });
+      if (boss.shared) {
+        this.addCheckboxCheck(character_bosses, row, boss.shared);
+      }
       character_bosses.push(row);
     }
     this.columns.push(column);
   }
 
-  deleteColumn() {
-    this.columns.removeAt(this.columns.length);
+  addCheckboxCheck(character_bosses, row, shared) {
+    row.get('checked').valueChanges.subscribe(value => {
+      this.triggerCheckboxCheck(character_bosses, shared, value);
+    })
+  }
+
+  triggerCheckboxCheck(character_bosses, shared, value) {
+    if (value) {
+      for (let boss of character_bosses.controls) {
+        if (shared.includes(boss.value.name)) {
+          boss.controls['checked'].disable({emitEvent: false});
+        }
+      }
+    } else {
+      for (let boss of character_bosses.controls) {
+        if (shared.includes(boss.value.name)) {
+          boss.controls['checked'].enable({emitEvent: false});
+        }
+      }
+    }
+  }
+
+  calculateIncome(index: number) {
+    let column = this.columns.at(index);
+    let character_bosses = column.get('character_bosses') as FormArray;
+    let total = 0;
+    for (let row of character_bosses.controls) {
+      if (row.value.checked) {
+        let result = this.bosses.find(boss => boss.name === row.value.name);
+        total += result.meso / row.value.party_size;
+      }
+    }
+    return this.numberWithCommas(Math.floor(total));
+  }
+
+  calculateTotalIncome() {
+    let total = 0;
+    for (let i = 0; i < this.columns.length; i++) {
+      let column = this.columns.at(i);
+      let character_bosses = column.get('character_bosses') as FormArray;
+      for (let row of character_bosses.controls) {
+        if (row.value.checked) {
+          let result = this.bosses.find(boss => boss.name === row.value.name);
+          total += result.meso / row.value.party_size;
+        }
+      }
+    }
+    return this.numberWithCommas(Math.floor(total));
+  }
+
+  // Returns the mesos for a boss divided by the party size
+  getSplitMesos(boss) {
+    let result = this.bosses.find(found => found.name === boss.value.name);
+    return this.numberWithCommas(Math.floor(result.meso / boss.value.party_size));
   }
 
   // Method that converts a number to one separated with commas
@@ -99,6 +183,7 @@ export class BossCrystalsComponent implements OnInit {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
 
+  // Limits party size to between 1 and 6
   partyFix(event: Event) {
     let target = event.target as HTMLInputElement;
     let value = parseInt(target.value);
