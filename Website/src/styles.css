@@ -16,18 +16,13 @@
     --maplestory-add-hover-color: #e7b882;
     --maplestory-delete-color: #d14d4d;
     --maplestory-delete-hover-color: #cf7171;
-
-    /* --nav-background: #40404b;
-    --nav-unselected: #686877;
-    --nav-selected: #8e8e9c;
-    --nav-border: #9595a5;
-    --nav-hover: #a5a5b9; */
     
     --table-header-background-dark: #333333;
     --table-header-background-light: #535353;
-    --table-row-background-dark: #cecece;
-    --table-row-background-light: #e0e0e0;
-
+    --table-row-background-dark: #c9c9c9;
+    --table-row-background-dark-alternate: #afafaf;
+    --table-row-background-light: #e2e2e2;
+    --table-row-background-light-alternate: #cecece;
 }
 
 html, body {

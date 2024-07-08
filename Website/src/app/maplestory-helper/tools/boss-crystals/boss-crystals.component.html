@@ -7,13 +7,14 @@
         <div class="add button" (click)="addColumn('cra')">Add CRA mule</div>
         <div class="add button" (click)="addColumn('akechi')">Add Akechi/CPap mule</div>
         <div class="add button" (click)="addColumn('nlomien')">Add NLomien mule</div>
+        <div class="add button" (click)="addColumn('ctene')">Add CTene mule</div>
     </div>
     <div id="table">
         <div>
             <div class="cell boss-header vertical-align">
                 Boss
             </div>
-            <div class="cell boss-row vertical-align" *ngFor="let boss of bosses; let i=index">
+            <div class="cell boss-row vertical-align" *ngFor="let boss of bosses; let i=index" [ngClass]="{ 'row-darken': boss.darken }">
                 {{boss.name}}
             </div>
         </div>
@@ -21,7 +22,7 @@
             <div class="cell meso-header vertical-align">
                 Mesos
             </div>
-            <div class="cell meso-row vertical-align" *ngFor="let boss of bosses; let i=index">
+            <div class="cell meso-row vertical-align" *ngFor="let boss of bosses; let i=index" [ngClass]="{ 'row-darken': boss.darken }">
                 {{numberWithCommas(boss.meso)}}
             </div>
         </div>
@@ -36,7 +37,7 @@
                         </div>
                     </div>
                     <div formArrayName="character_bosses" *ngFor="let boss of character.get('character_bosses')['controls']; let j = index">
-                        <div class="cell character-row vertical-align" [formGroupName]="j">
+                        <div class="cell character-row vertical-align" [formGroupName]="j" [ngClass]="{ 'row-darken-right': boss.value.darken }">
                             <input type="checkbox" formControlName="checked">
                             <input type="number" formControlName="party_size" min="1" max="6" class="party_size" (focusout)="partyFix($event)">
                             <div class="speech-bubble">

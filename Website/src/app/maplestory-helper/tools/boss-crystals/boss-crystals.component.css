@@ -182,3 +182,11 @@ form {
 input[disabled] {
     filter: brightness(0.6);
 }
+
+.row-darken {
+    background-color: var(--table-row-background-dark-alternate);
+}
+
+.row-darken-right {
+    background-color: var(--table-row-background-light-alternate);
+}

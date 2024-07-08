@@ -1,55 +1,57 @@
-import { NgFor } from '@angular/common';
+import { NgClass, NgFor } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-boss-crystals',
   standalone: true,
-  imports: [NgFor, ReactiveFormsModule],
+  imports: [NgFor, ReactiveFormsModule, NgClass],
   templateUrl: './boss-crystals.component.html',
   styleUrl: './boss-crystals.component.css'
 })
 export class BossCrystalsComponent implements OnInit {
   bosses = [
-    {name: 'Hilla', meso: 56250000, preset: ['cra', 'akechi', 'nlomien']},
-    {name: 'CPB', meso: 64000000, preset: ['cra', 'akechi', 'nlomien']},
-    {name: 'NCyg', meso: 72250000, preset: ['cra', 'akechi', 'nlomien']},
-    {name: 'CQueen', meso: 81000000, preset: ['cra', 'akechi', 'nlomien']},
-    {name: 'CVonBon', meso: 81000000, preset: ['cra', 'akechi', 'nlomien']},
-    {name: 'CPierre', meso: 81000000, preset: ['cra', 'akechi', 'nlomien']},
-    {name: 'CZak', meso: 81000000, preset: ['cra', 'akechi', 'nlomien']},
-    {name: 'PNo', meso: 81000000, preset: ['cra', 'akechi', 'nlomien']},
-    {name: 'HMag', meso: 95062500, preset: ['cra', 'akechi', 'nlomien']},
-    {name: 'CVel', meso: 105062500, preset: ['cra', 'akechi', 'nlomien']},
-    {name: 'CPap', meso: 132250000, preset: ['akechi', 'nlomien']},
-    {name: 'Akechi', meso: 144000000, preset: ['akechi', 'nlomien']},
+    {name: 'Hilla', meso: 56250000, preset: ['cra', 'akechi', 'nlomien', 'ctene']},
+    {name: 'CPB', meso: 64000000, preset: ['cra', 'akechi', 'nlomien', 'ctene'], darken: true},
+    {name: 'ECyg', meso: 45562500, shared: ['NCyg']},
+    {name: 'NCyg', meso: 72250000, shared: ['ECyg'], preset: ['cra', 'akechi', 'nlomien', 'ctene']},
+    {name: 'CQueen', meso: 81000000, preset: ['cra', 'akechi', 'nlomien', 'ctene'], darken: true},
+    {name: 'CVonBon', meso: 81000000, preset: ['cra', 'akechi', 'nlomien', 'ctene']},
+    {name: 'CPierre', meso: 81000000, preset: ['cra', 'akechi', 'nlomien', 'ctene'], darken: true},
+    {name: 'CZak', meso: 81000000, preset: ['cra', 'akechi', 'nlomien', 'ctene']},
+    {name: 'PNo', meso: 81000000, preset: ['cra', 'akechi', 'nlomien', 'ctene'], darken: true},
+    {name: 'HMag', meso: 95062500, preset: ['cra', 'akechi', 'nlomien', 'ctene']},
+    {name: 'CVel', meso: 105062500, preset: ['cra', 'akechi', 'nlomien', 'ctene'], darken: true},
+    {name: 'CPap', meso: 132250000, preset: ['akechi', 'nlomien', 'ctene']},
+    {name: 'Akechi', meso: 144000000, preset: ['akechi', 'nlomien', 'ctene'], darken: true},
     {name: 'NLotus', meso: 162562500, shared: ['HLotus'], preset: ['nlomien']},
-    {name: 'NDamien', meso: 169000000, shared: ['HDamien'], preset: ['nlomien']},
+    {name: 'HLotus', meso: 370562500, shared: ['NLotus'], preset: ['ctene']},
+    {name: 'NDamien', meso: 169000000, shared: ['HDamien'], preset: ['nlomien'], darken: true},
+    {name: 'HDamien', meso: 351562500, shared: ['NDamien'], preset: ['ctene'], darken: true},
     {name: 'NSlime', meso: 171610000, shared: ['CSlime']},
-    {name: 'ELucid', meso: 175562500, shared: ['NLucid', 'HLucid']},
-    {name: 'NLucid', meso: 203062500, shared: ['ELucid', 'HLucid']},
-    {name: 'NWill', meso: 232562500, shared: ['HWill']},
-    {name: 'NGloom', meso: 248062500, shared: ['CGloom']},
+    {name: 'CSlime', meso: 451562500, shared: ['NSlime'], preset: ['ctene']},
+    {name: 'ELucid', meso: 175562500, shared: ['NLucid', 'HLucid'], darken: true},
+    {name: 'NLucid', meso: 203062500, shared: ['ELucid', 'HLucid'], darken: true},
+    {name: 'HLucid', meso: 400000000, shared: ['ELucid', 'NLucid'], preset: ['ctene'], darken: true},
+    {name: 'EWill', meso: 191275000, shared: ['NWill', 'HWill']},
+    {name: 'NWill', meso: 232562500, shared: ['EWill, HWill']},
+    {name: 'HWill', meso: 441000000, shared: ['EWill, NWill'], preset: ['ctene']},
+    {name: 'NGloom', meso: 248062500, shared: ['CGloom'], darken: true},
+    {name: 'CGloom', meso: 462250000, shared: ['NGloom'], preset: ['ctene'], darken: true},
     {name: 'NDarknell', meso: 264062500, shared: ['HDarknell']},
-    {name: 'HDamien', meso: 351562500, shared: ['NDamien']},
-    {name: 'HLotus', meso: 370562500, shared: ['NLotus']},
-    {name: 'HLucid', meso: 400000000, shared: ['ELucid', 'NLucid']},
-    {name: 'HWill', meso: 441000000, shared: ['NWill']},
-    {name: 'NVHilla', meso: 447600000, shared: ['HVHilla']},
-    {name: 'CSlime', meso: 451562500, shared: ['NSlime']},
-    {name: 'CGloom', meso: 462250000, shared: ['NGloom']},
-    {name: 'HDarknell', meso: 484000000, shared: ['NDarknell']},
-    {name: 'HVHilla', meso: 552250000, shared: ['NVHilla']},
+    {name: 'HDarknell', meso: 484000000, shared: ['NDarknell'], preset: ['ctene']},
+    {name: 'NVHilla', meso: 447600000, shared: ['HVHilla'], darken: true},
+    {name: 'HVHilla', meso: 552250000, shared: ['NVHilla'], preset: ['ctene'], darken: true},
     {name: 'NSeren', meso: 668437500, shared: ['HSeren', 'XSeren']},
-    {name: 'EKalos', meso: 750000000, shared: ['NKalos', 'CKalos', 'XKalos']},
     {name: 'HSeren', meso: 756250000, shared: ['NSeren', 'XSeren']},
-    {name: 'EKaling', meso: 825000000, shared: ['NKaling', 'HKaling', 'XKaling']},
-    {name: 'NKalos', meso: 1000000000, shared: ['EKalos', 'CKalos', 'XKalos']},
-    {name: 'NKaling', meso: 1150000000, shared: ['EKaling, HKaling', 'XKaling']},
-    {name: 'CKalos', meso: 2000000000, shared: ['EKalos', 'NKalos', 'XKalos']},
-    {name: 'HKaling', meso: 2000000000, shared: ['EKaling', 'NKaling', 'XKaling']},
     {name: 'XSeren', meso: 3025000000, shared: ['NSeren', 'HSeren']},
-    {name: 'XKalos', meso: 4000000000, shared: ['EKalos', 'NKalos', 'CKalos']},
+    {name: 'EKalos', meso: 750000000, shared: ['NKalos', 'CKalos', 'XKalos'], darken: true},
+    {name: 'NKalos', meso: 1000000000, shared: ['EKalos', 'CKalos', 'XKalos'], darken: true},
+    {name: 'CKalos', meso: 2000000000, shared: ['EKalos', 'NKalos', 'XKalos'], darken: true},
+    {name: 'XKalos', meso: 4000000000, shared: ['EKalos', 'NKalos', 'CKalos'], darken: true},
+    {name: 'EKaling', meso: 825000000, shared: ['NKaling', 'HKaling', 'XKaling']},
+    {name: 'NKaling', meso: 1150000000, shared: ['EKaling, HKaling', 'XKaling']},
+    {name: 'HKaling', meso: 2000000000, shared: ['EKaling', 'NKaling', 'XKaling']},
     {name: 'XKaling', meso: 4600000000, shared: ['EKaling', 'NKaling', 'HKaling']},
   ]
 
@@ -80,7 +82,8 @@ export class BossCrystalsComponent implements OnInit {
       let copy_row = this.formBuilder.group({
         name: this.formBuilder.control(row.value.name),
         checked: this.formBuilder.control(row.value.checked),
-        party_size: this.formBuilder.control(row.value.party_size)
+        party_size: this.formBuilder.control(row.value.party_size),
+        darken: this.formBuilder.control(row.value.darken)
       })
       let result = this.bosses.find(boss => boss.name === row.value.name);
       if (result.shared) {
@@ -112,12 +115,19 @@ export class BossCrystalsComponent implements OnInit {
       let row = this.formBuilder.group({
         name: this.formBuilder.control(boss.name),
         checked: this.formBuilder.control(boss.preset && boss.preset.includes(preset)),
-        party_size: this.formBuilder.control(1)
+        party_size: this.formBuilder.control(1),
+        darken: this.formBuilder.control(boss.darken)
       });
       if (boss.shared) {
         this.addCheckboxCheck(character_bosses, row, boss.shared);
       }
       character_bosses.push(row);
+    }
+    for (let row of character_bosses.controls) {
+      let result = this.bosses.find(boss => boss.name === row.value.name);
+      if (result.shared && row.value.checked) {
+        this.triggerCheckboxCheck(character_bosses, result.shared, row.value.checked);
+      }
     }
     this.columns.push(column);
   }
