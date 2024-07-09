@@ -1,11 +1,5 @@
 /* Menu */
 
-#menu, #results {
-    background-color: white;
-    padding: 15px;
-    border-radius: 5px;
-}
-
 #menu {
     display: flex;
     flex-wrap: wrap;
@@ -68,8 +62,9 @@ form {
 }
 
 .character-input {
+    text-align: center;
+    font-size: 0.7rem;
     width: 90px;
-    padding-left: 5px;
     box-sizing: border-box;
     outline: none;
     color: var(--maplestory-dark-font);
@@ -248,7 +243,6 @@ label {
 /* Mobile CSS */
 
 @media (width <= 800px) {
-
     #income-header {
         font-size: 1.25rem;
     }

@@ -3,6 +3,7 @@ import { PortfolioComponent } from './portfolio/portfolio.component';
 import { MaplestoryHelperComponent } from './maplestory-helper/maplestory-helper.component';
 import { BossCrystalsComponent } from './maplestory-helper/tools/boss-crystals/boss-crystals.component';
 import { IedCalculatorComponent } from './maplestory-helper/tools/ied-calculator/ied-calculator.component';
+import { UsefulResourcesComponent } from './maplestory-helper/tools/useful-resources/useful-resources.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/portfolio', pathMatch: 'full' },
@@ -20,6 +21,10 @@ export const routes: Routes = [
             {
                 path: 'ied-calculator',
                 component: IedCalculatorComponent
+            },
+            {
+                path: 'useful-resources',
+                component: UsefulResourcesComponent
             },
         ]
      }

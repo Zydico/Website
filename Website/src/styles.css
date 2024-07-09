@@ -36,6 +36,12 @@ html, body {
     padding-top: 150px;
 }
 
+.maplestory-panel {
+    background-color: white;
+    padding: 15px;
+    border-radius: 5px;
+}
+
 .maplestory-text-outline {
     text-shadow:
     1px 1px 0 #568702,
