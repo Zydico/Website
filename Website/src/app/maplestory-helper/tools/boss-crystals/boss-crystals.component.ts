@@ -57,8 +57,8 @@ export class BossCrystalsComponent implements OnInit {
 
   bossForm!: FormGroup;
   extraForm: FormGroup = this.formBuilder.group({
-    ursus: this.formBuilder.control(true),
-    maple_tour: this.formBuilder.control(true),
+    ursus: this.formBuilder.control(false),
+    maple_tour: this.formBuilder.control(false),
     highest_level: this.formBuilder.control(280),
   })
 
