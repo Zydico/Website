@@ -84,15 +84,6 @@ form {
     background-color: var(--table-row-background-light);
 }
 
-.party_size {
-    box-sizing: border-box;
-    outline: none;
-    color: var(--maplestory-dark-font);
-    width: 50px;
-    margin-left: 10px;
-    padding-left: 10px;
-}
-
 .hover-menu {
     display: none;
     width: 100%;
@@ -196,6 +187,29 @@ label {
     height: 80%;
     margin-left: -5px;
     margin-right: 10px;
+}
+
+.cell-label {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: -5px;
+    top: -4px;
+    padding-left: 14px;
+}
+
+.party-size {
+    outline: none;
+    color: var(--maplestory-dark-font);
+    width: 30px;
+    margin-left: 10px;
+    padding-left: 10px;
+    height: 1rem;
+    padding-right: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
 }
 
 /* Extra Income */

@@ -44,11 +44,13 @@
                     </div>
                     <div formArrayName="character_bosses" *ngFor="let boss of character.get('character_bosses')['controls']; let j = index">
                         <div class="cell character-row vertical-align" [formGroupName]="j" [ngClass]="{ 'row-darken-right': boss.value.darken }">
-                            <input type="checkbox" formControlName="checked">
-                            <input type="number" formControlName="party_size" min="1" max="6" class="party_size" (focusout)="partyFix($event)">
-                            <div class="speech-bubble">
-                                {{getSplitMesos(boss)}}
-                            </div>
+                            <label class="cell-label">
+                                <input type="checkbox" formControlName="checked">
+                                <input type="number" formControlName="party_size" min="1" max="6" class="party-size" (focusout)="partyFix($event)">
+                                <div class="speech-bubble">
+                                    {{getSplitMesos(boss)}}
+                                </div>
+                            </label>
                         </div>
                     </div>
                 </ng-container>
