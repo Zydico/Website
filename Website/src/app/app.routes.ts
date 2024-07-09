@@ -10,6 +10,7 @@ export const routes: Routes = [
     { 
         path: 'maplestory-helper', 
         component: MaplestoryHelperComponent,
+        title: "Zydico's Maplestory Helper",
         children: [
             { path: '', redirectTo: 'boss-crystals', pathMatch: 'full' },
             {
