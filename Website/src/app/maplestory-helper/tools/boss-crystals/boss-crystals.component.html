@@ -15,6 +15,7 @@
                 Boss
             </div>
             <div class="cell boss-row vertical-align" *ngFor="let boss of bosses; let i=index" [ngClass]="{ 'row-darken': boss.darken }">
+                <img class="boss-icon" [src]="'Boss Crystals/' + boss.url + '.png'" loading="lazy">
                 {{boss.name}}
             </div>
         </div>
