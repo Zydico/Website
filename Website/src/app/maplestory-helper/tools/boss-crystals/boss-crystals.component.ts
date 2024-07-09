@@ -55,21 +55,84 @@ export class BossCrystalsComponent implements OnInit {
     {name: 'Kaling (Extreme)', meso: 4600000000, shared: ['Kaling (Easy)', 'Kaling (Normal)', 'Kaling (Hard)'], url: 'Kaling'}
   ]
 
-  server: string = 'reboot';
-  bossForm!: FormGroup;
+  bossForm: FormGroup = this.formBuilder.group({
+    server: this.formBuilder.control('reboot'),
+    columns: this.formBuilder.array([])
+  });
   extraForm: FormGroup = this.formBuilder.group({
     ursus: this.formBuilder.control(false),
     maple_tour: this.formBuilder.control(false),
     highest_level: this.formBuilder.control(280),
-  })
+  });
 
   constructor(private readonly formBuilder: FormBuilder) {}
 
   ngOnInit() {
-    this.bossForm = this.formBuilder.group({
-      columns: this.formBuilder.array([])
-    });
-    this.addColumn();
+    //localStorage.clear();
+    let server = localStorage.getItem('boss-crystals-server')
+    if (localStorage.getItem('boss-crystals-server')) {
+      // set server
+      this.bossForm.get('server').setValue(server);
+
+      // set columns
+      let columns = JSON.parse(localStorage.getItem('boss-crystals-columns'));
+      for (let character of columns) {
+        let column = this.formBuilder.group({
+          character: this.formBuilder.control(character.character),
+          character_bosses: this.formBuilder.array([])
+        })
+        let character_bosses = character.character_bosses;
+        let copy_character_bosses = column.get('character_bosses') as FormArray;
+        for (let row of character_bosses) {
+          let copy_row = this.formBuilder.group({
+            name: this.formBuilder.control(row.name),
+            checked: this.formBuilder.control(row.checked),
+            party_size: this.formBuilder.control(row.party_size),
+            darken: this.formBuilder.control(row.darken)
+          })
+          let result = this.bosses.find(boss => boss.name === row.name);
+          if (result.shared) {
+            this.addCheckboxCheck(copy_character_bosses, copy_row, result.shared);
+          }
+          copy_character_bosses.push(copy_row);
+        }
+        for (let row of copy_character_bosses.controls) {
+          let result = this.bosses.find(boss => boss.name === row.value.name);
+          if (result.shared && row.value.checked) {
+            this.triggerCheckboxCheck(copy_character_bosses, result.shared, row.value.checked);
+          }
+        }
+        this.columns.push(column);       
+      }
+
+      // set extra form
+      this.extraForm.get('ursus').setValue(localStorage.getItem('boss-crystals-ursus') === 'true');
+      this.extraForm.get('maple_tour').setValue(localStorage.getItem('boss-crystals-maple-tour') === 'true');
+      this.extraForm.get('highest_level').setValue(localStorage.getItem('boss-crystals-highest-level'));
+    } else {
+      this.addColumn();
+    }
+    this.bossForm.valueChanges.subscribe(() => {
+      this.updateStorage();
+    })
+    this.extraForm.valueChanges.subscribe(() => {
+      this.updateStorage();
+    })
+  }
+
+  updateStorage(): void {
+    let bossForm = this.bossForm;
+    let extraForm = this.extraForm;
+    // saving server setting
+    localStorage.setItem('boss-crystals-server', bossForm.get('server').value);
+
+    // saving table of characters
+    localStorage.setItem('boss-crystals-columns', JSON.stringify(bossForm.get('columns').value));
+
+    // saving extra form
+    localStorage.setItem('boss-crystals-ursus', extraForm.get('ursus').value);
+    localStorage.setItem('boss-crystals-maple-tour', extraForm.get('maple_tour').value);
+    localStorage.setItem('boss-crystals-highest-level', extraForm.get('highest_level').value);
   }
 
   get columns(): FormArray {
@@ -168,7 +231,7 @@ export class BossCrystalsComponent implements OnInit {
     for (let row of character_bosses.controls) {
       if (row.value.checked) {
         let result = this.bosses.find(boss => boss.name === row.value.name);
-        total += (this.server == 'reboot' ? result.meso : result.meso/5) / row.value.party_size;
+        total += (this.bossForm.get('server').value == 'reboot' ? result.meso : result.meso/5) / row.value.party_size;
         crystals++;
       }
     }
@@ -176,12 +239,12 @@ export class BossCrystalsComponent implements OnInit {
   }
 
   getUrsus(): number {
-    let ursus = Math.round(this.extraForm.get('highest_level').value * 138206.25 * 3 * 7 / (this.server == 'reboot' ? 1 : 5));
+    let ursus = Math.round(this.extraForm.get('highest_level').value * 138206.25 * 3 * 7 / (this.bossForm.get('server').value == 'reboot' ? 1 : 5));
     return ursus;
   }
 
   getMapleTour(): number {
-    let tour = Math.round(24510668 * 14 / (this.server == 'reboot' ? 1 : 5));
+    let tour = Math.round(24510668 * 14 / (this.bossForm.get('server').value == 'reboot' ? 1 : 5));
     return tour;
   }
 
@@ -194,7 +257,7 @@ export class BossCrystalsComponent implements OnInit {
       for (let row of character_bosses.controls) {
         if (row.value.checked) {
           let result = this.bosses.find(boss => boss.name === row.value.name);
-          total += (this.server == 'reboot' ? result.meso : result.meso/5) / row.value.party_size;
+          total += (this.bossForm.get('server').value == 'reboot' ? result.meso : result.meso/5) / row.value.party_size;
           crystals++;
         }
       }
@@ -211,7 +274,7 @@ export class BossCrystalsComponent implements OnInit {
   // Returns the mesos for a boss divided by the party size
   getSplitMesos(boss) {
     let result = this.bosses.find(found => found.name === boss.value.name);
-    return this.numberWithCommas(Math.floor((this.server == 'reboot' ? result.meso : result.meso/5) / boss.value.party_size));
+    return this.numberWithCommas(Math.floor((this.bossForm.get('server').value == 'reboot' ? result.meso : result.meso/5) / boss.value.party_size));
   }
 
   // Method that converts a number to one separated with commas

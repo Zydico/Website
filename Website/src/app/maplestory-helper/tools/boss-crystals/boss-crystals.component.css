@@ -1,3 +1,5 @@
+/* Menu */
+
 #menu, #results {
     background-color: white;
     padding: 15px;
@@ -9,16 +11,23 @@
     flex-wrap: wrap;
 }
 
+#server {
+    margin-top: 10px;
+    flex: 0 0 100%;
+}
+
+#instructions {
+    flex: 0 0 100%;
+}
+
+/* Table */
+
 #table {
     display: flex;
 }
 
 #menu, #table {
     margin-bottom: 40px;
-}
-
-#instructions {
-    flex: 0 0 100%;
 }
 
 .cell {
@@ -137,22 +146,6 @@ form {
     background-color: var(--maplestory-add-hover-color);
 }
 
-#income-header {
-    font-size: 1.5rem;
-    font-weight: bold;
-}
-
-#bossing-header, #extra-header {
-    font-size: 1.25rem;
-    font-weight: bold;
-    margin-bottom: 5px;
-    margin-top: 10px;
-}
-
-.results-character {
-    font-size: 1rem;
-}
-
 .speech-bubble {
     position: absolute;
     top: -10px;
@@ -199,6 +192,14 @@ label {
     user-select: none;
 }
 
+.boss-icon {
+    height: 80%;
+    margin-left: -5px;
+    margin-right: 10px;
+}
+
+/* Extra Income */
+
 .extra-income {
     flex: 0 0 100%;
 }
@@ -214,13 +215,45 @@ label {
     padding-left: 5px;
 }
 
-.boss-icon {
-    height: 80%;
-    margin-left: -5px;
-    margin-right: 10px;
+#income-header {
+    font-size: 1.5rem;
+    font-weight: bold;
 }
 
-#server {
+#bossing-header, #extra-header {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 5px;
     margin-top: 10px;
-    flex: 0 0 100%;
+}
+
+.results-character {
+    font-size: 1rem;
+}
+
+/* Mobile CSS */
+
+@media (width <= 800px) {
+    .maplestory-page-container {
+        padding: 10px;
+        padding-top: 150px;
+    }
+
+    #income-header {
+        font-size: 1.25rem;
+    }
+    
+    #bossing-header, #extra-header {
+        font-size: 1.1rem;
+    }
+
+    #total-header {
+        font-size: 1rem;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .results-character {
+        font-size: 0.8rem;
+    }
 }

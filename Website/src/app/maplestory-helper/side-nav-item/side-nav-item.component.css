@@ -18,3 +18,16 @@
     padding-left: 25px;
     background-color: var(--maplestory-nav-button-light);
 }
+
+@media (width <= 800px) {
+    .side-nav-item {
+        border-radius: 5px;
+        padding: 5px 10px;
+        box-sizing: border-box;
+    }
+    
+    .selected {
+        background-color: var(--maplestory-nav-button-light);
+        font-weight: bold;
+    }
+}

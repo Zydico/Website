@@ -1,17 +1,17 @@
 <div class="maplestory-page-container">
     <div id="menu">
         <div id="instructions">
-            The numbers next to the checkboxes represents the number of people in the party. This page is intended for GMS Reboot/Heroic players.
+            The numbers next to the checkboxes represents the number of people in the party. If you have any suggestions let me know on Reddit or Discord (Zydico)
         </div>
         <div class="add button" (click)="addColumn()">Add empty character</div>
         <div class="add button" (click)="addColumn('cra')">Add CRA mule</div>
         <div class="add button" (click)="addColumn('akechi')">Add Akechi/CPap mule</div>
         <div class="add button" (click)="addColumn('nlomien')">Add NLomien mule</div>
         <div class="add button" (click)="addColumn('ctene')">Add CTene mule</div>
-        <div id="server">
-            <input type="radio" id="reboot" name="server" value="reboot" [(ngModel)]="server">Reboot/Heroic
+        <div id="server" [formGroup]="bossForm">
+            <input type="radio" id="reboot" name="server" value="reboot" formControlName="server">Reboot/Heroic
             <br>
-            <input type="radio" id="regular" name="server" value="regular" [(ngModel)]="server">Regular
+            <input type="radio" id="regular" name="server" value="regular" formControlName="server">Regular
         </div>
     </div>
     <div id="table">
@@ -29,7 +29,7 @@
                 Mesos
             </div>
             <div class="cell meso-row vertical-align" *ngFor="let boss of bosses; let i=index" [ngClass]="{ 'row-darken': boss.darken }">
-                {{numberWithCommas(server == 'reboot' ? boss.meso : boss.meso/5)}}
+                {{numberWithCommas(bossForm.get('server').value == 'reboot' ? boss.meso : boss.meso/5)}}
             </div>
         </div>
         <form [formGroup]="bossForm">
