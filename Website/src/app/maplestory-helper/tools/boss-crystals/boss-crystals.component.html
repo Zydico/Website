@@ -8,6 +8,11 @@
         <div class="add button" (click)="addColumn('akechi')">Add Akechi/CPap mule</div>
         <div class="add button" (click)="addColumn('nlomien')">Add NLomien mule</div>
         <div class="add button" (click)="addColumn('ctene')">Add CTene mule</div>
+        <div id="server">
+            <input type="radio" id="reboot" name="server" value="reboot" [(ngModel)]="server">Reboot/Heroic
+            <br>
+            <input type="radio" id="regular" name="server" value="regular" [(ngModel)]="server">Regular
+        </div>
     </div>
     <div id="table">
         <div>
@@ -24,7 +29,7 @@
                 Mesos
             </div>
             <div class="cell meso-row vertical-align" *ngFor="let boss of bosses; let i=index" [ngClass]="{ 'row-darken': boss.darken }">
-                {{numberWithCommas(boss.meso)}}
+                {{numberWithCommas(server == 'reboot' ? boss.meso : boss.meso/5)}}
             </div>
         </div>
         <form [formGroup]="bossForm">

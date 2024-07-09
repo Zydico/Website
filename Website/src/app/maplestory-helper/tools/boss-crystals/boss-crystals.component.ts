@@ -1,11 +1,11 @@
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-boss-crystals',
   standalone: true,
-  imports: [NgFor, ReactiveFormsModule, NgClass, NgIf],
+  imports: [NgFor, ReactiveFormsModule, NgClass, NgIf, FormsModule],
   templateUrl: './boss-crystals.component.html',
   styleUrl: './boss-crystals.component.css'
 })
@@ -55,6 +55,7 @@ export class BossCrystalsComponent implements OnInit {
     {name: 'Kaling (Extreme)', meso: 4600000000, shared: ['Kaling (Easy)', 'Kaling (Normal)', 'Kaling (Hard)'], url: 'Kaling'}
   ]
 
+  server: string = 'reboot';
   bossForm!: FormGroup;
   extraForm: FormGroup = this.formBuilder.group({
     ursus: this.formBuilder.control(false),
@@ -167,7 +168,7 @@ export class BossCrystalsComponent implements OnInit {
     for (let row of character_bosses.controls) {
       if (row.value.checked) {
         let result = this.bosses.find(boss => boss.name === row.value.name);
-        total += result.meso / row.value.party_size;
+        total += (this.server == 'reboot' ? result.meso : result.meso/5) / row.value.party_size;
         crystals++;
       }
     }
@@ -175,12 +176,12 @@ export class BossCrystalsComponent implements OnInit {
   }
 
   getUrsus(): number {
-    let ursus = Math.round(this.extraForm.get('highest_level').value * 138206.25 * 3 * 7);
+    let ursus = Math.round(this.extraForm.get('highest_level').value * 138206.25 * 3 * 7 / (this.server == 'reboot' ? 1 : 5));
     return ursus;
   }
 
   getMapleTour(): number {
-    let tour = 24510668 * 14;
+    let tour = Math.round(24510668 * 14 / (this.server == 'reboot' ? 1 : 5));
     return tour;
   }
 
@@ -193,7 +194,7 @@ export class BossCrystalsComponent implements OnInit {
       for (let row of character_bosses.controls) {
         if (row.value.checked) {
           let result = this.bosses.find(boss => boss.name === row.value.name);
-          total += result.meso / row.value.party_size;
+          total += (this.server == 'reboot' ? result.meso : result.meso/5) / row.value.party_size;
           crystals++;
         }
       }
@@ -210,7 +211,7 @@ export class BossCrystalsComponent implements OnInit {
   // Returns the mesos for a boss divided by the party size
   getSplitMesos(boss) {
     let result = this.bosses.find(found => found.name === boss.value.name);
-    return this.numberWithCommas(Math.floor(result.meso / boss.value.party_size));
+    return this.numberWithCommas(Math.floor((this.server == 'reboot' ? result.meso : result.meso/5) / boss.value.party_size));
   }
 
   // Method that converts a number to one separated with commas
