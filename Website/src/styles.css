@@ -71,3 +71,10 @@ html, body {
     align-items: center;
     justify-content: center;
 }
+
+@media (width <= 800px) {
+    .maplestory-page-container {
+        padding: 10px;
+        padding-top: 120px;
+    }
+}

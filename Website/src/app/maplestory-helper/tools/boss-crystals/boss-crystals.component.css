@@ -248,10 +248,6 @@ label {
 /* Mobile CSS */
 
 @media (width <= 800px) {
-    .maplestory-page-container {
-        padding: 10px;
-        padding-top: 150px;
-    }
 
     #income-header {
         font-size: 1.25rem;

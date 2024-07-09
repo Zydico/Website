@@ -12,12 +12,14 @@
 
 @media (width <= 800px) {
     .header {
+        box-sizing: border-box;
         left: 0px;
         top: 70px;
-        height: 3rem;
-        font-size: 1.5rem;
+        height: 2.25rem;
+        font-size: 1.25rem;
         padding-left: 0;
         justify-content: center;
         align-items: center;
+        width: 100vw;
     }
 }

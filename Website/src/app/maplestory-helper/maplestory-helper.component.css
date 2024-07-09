@@ -29,13 +29,14 @@
 
 @media (width <= 800px) {
     #side-nav {
-        width: 100%;
-        height: auto;
+        width: 100vw;
+        height: 70px;
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
         padding-bottom: 10px;
         gap: 10px;
+        box-sizing: border-box;
     }
 
     #title {
