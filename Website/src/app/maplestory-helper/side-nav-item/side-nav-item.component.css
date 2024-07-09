@@ -17,6 +17,7 @@
 .selected {
     padding-left: 25px;
     background-color: var(--maplestory-nav-button-light);
+    font-weight: bold;
 }
 
 @media (width <= 800px) {
