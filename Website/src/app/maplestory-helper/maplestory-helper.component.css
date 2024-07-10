@@ -27,6 +27,39 @@
     font-weight: bold;
 }
 
+.page-container {
+    padding: 40px;
+    padding-top: 150px;
+}
+
+.panel {
+    background-color: white;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+/* Table */
+
+.cell {
+    padding-left: 10px;
+    padding-right: 5px;
+    height: 40px;
+    box-sizing: border-box;
+    margin-right: 1px;
+    margin-bottom: 1px;
+    position: relative;
+    line-height: 0.85rem;
+}
+
+.table {
+    display: flex;
+    margin-bottom: 40px;
+}
+
+form {
+    display: flex;
+}
+
 @media (width <= 800px) {
     #side-nav {
         width: 100vw;

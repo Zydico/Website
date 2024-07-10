@@ -5,8 +5,7 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './useful-resources.component.html',
-  styleUrl: './useful-resources.component.css'
+  styleUrls: ['./useful-resources.component.css', '../../maplestory-helper.component.css']
 })
 export class UsefulResourcesComponent {
-
 }

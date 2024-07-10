@@ -7,7 +7,7 @@ import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } f
   standalone: true,
   imports: [NgFor, ReactiveFormsModule, NgClass, NgIf, FormsModule],
   templateUrl: './boss-crystals.component.html',
-  styleUrl: './boss-crystals.component.css'
+  styleUrls: ['./boss-crystals.component.css', '../../maplestory-helper.component.css']
 })
 export class BossCrystalsComponent implements OnInit {
   bosses = [

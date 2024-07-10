@@ -16,27 +16,8 @@
 
 /* Table */
 
-#table {
-    display: flex;
-}
-
-#menu, #table {
+#menu {
     margin-bottom: 40px;
-}
-
-.cell {
-    padding-left: 10px;
-    padding-right: 5px;
-    height: 40px;
-    box-sizing: border-box;
-    margin-right: 1px;
-    margin-bottom: 1px;
-    position: relative;
-    line-height: 0.85rem;
-}
-
-form {
-    display: flex;
 }
 
 .boss-header, .meso-header {
@@ -135,7 +116,7 @@ form {
 .speech-bubble {
     position: absolute;
     top: -10px;
-    left: calc(100% - 10px);
+    left: calc(100% - 25px);
     background-color: var(--white);
     white-space: nowrap;
     padding: 5px;

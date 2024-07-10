@@ -1,7 +1,7 @@
-<div class="maplestory-page-container">
-    <div id="menu" class="maplestory-panel">
+<div class="page-container">
+    <div id="menu" class="panel">
         <div id="instructions">
-            The numbers next to the checkboxes represents the number of people in the party. If you have any suggestions let me know on Reddit or Discord (Zydico)
+            The numbers next to the checkboxes represents the number of people in the party.
         </div>
         <div class="add button" (click)="addColumn()">Add empty character</div>
         <div class="add button" (click)="addColumn('cra')">Add CRA mule</div>
@@ -14,7 +14,7 @@
             <input type="radio" id="regular" name="server" value="regular" formControlName="server">Regular
         </div>
     </div>
-    <div id="table">
+    <div class="table">
         <div>
             <div class="cell boss-header vertical-align">
                 Boss
@@ -57,7 +57,7 @@
             </div>
         </form>
     </div>
-    <div id="results" class="maplestory-panel">
+    <div id="results" class="panel">
         <div id="income-header">Weekly Income</div>
         <div id="bossing-header">Bossing</div>
         <div *ngFor="let character of columns.controls; let i = index" class="results-character">
