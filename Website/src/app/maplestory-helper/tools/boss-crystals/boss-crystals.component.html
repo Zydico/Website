@@ -1,7 +1,9 @@
 <div class="page-container">
     <div id="menu" class="panel">
+        <div id="clear" class="add button" (click)="clearData()">Clear Storage and Refresh</div>
         <div id="instructions">
-            The numbers next to the checkboxes represents the number of people in the party.
+            The first five rows are daily bosses and the numbers next to the checkboxes represents the number of times you clear the boss in a week.<br>
+            All other rows are weekly bosses and the numbers next to the checkboxes represents the number of people in the party.
         </div>
         <div class="add button" (click)="addColumn()">Add empty character</div>
         <div class="add button" (click)="addColumn('cra')">Add CRA mule</div>
@@ -46,7 +48,12 @@
                         <div class="cell character-row vertical-align" [formGroupName]="j" [ngClass]="{ 'row-darken-right': boss.value.darken }">
                             <label class="cell-label">
                                 <input type="checkbox" formControlName="checked">
-                                <input type="number" formControlName="party_size" min="1" max="6" class="party-size" (focusout)="partyFix($event)">
+                                <ng-container *ngIf="boss.value.daily">
+                                    <input type="number" formControlName="weekly_clears" min="1" max="7" class="party-size" (focusout)="clearFix($event)">
+                                </ng-container>
+                                <ng-container *ngIf="!boss.value.daily">
+                                    <input type="number" formControlName="party_size" min="1" max="6" class="party-size" (focusout)="partyFix($event)">
+                                </ng-container>
                                 <div class="speech-bubble">
                                     {{getSplitMesos(boss)}}
                                 </div>
