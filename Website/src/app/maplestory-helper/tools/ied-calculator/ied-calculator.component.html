@@ -1,6 +1,6 @@
 <div class="page-container">
     Work in progress
-    <div id="menu" class="panel">
+    <!-- <div id="menu" class="panel">
         <div class="header">Visual Sources of IED</div>
         <ng-container [formGroup]="iedForm">
             <table>
@@ -11,8 +11,6 @@
                 </tr>
                 <tr formArrayName="visual" *ngFor="let row of visuals.controls; let i=index">
                     <ng-container [formGroupName]="i">
-                        <!-- <td>{{row.source}}</td>
-                        <td>{{row.ied}}</td> -->
                         <td [ngClass]="{ 'row-darken': row.value.darken }">{{row.value.source}}</td>
                         <td [ngClass]="{ 'row-darken': row.value.darken }">{{row.value.ied}}%</td>
                         <td [ngClass]="{ 'row-darken': row.value.darken }">
@@ -22,36 +20,5 @@
                 </tr>
             </table>
         </ng-container>
-    </div>
+    </div> -->
 </div>
-
-<!-- 
-<div class="cell boss-row vertical-align" *ngFor="let boss of bosses; let i=index" [ngClass]="{ 'row-darken': boss.darken }">
-    <img class="boss-icon" [src]="'Boss Crystals/' + boss.url + '.png'" loading="lazy">
-    {{boss.name}}
-</div> 
-
-
-
-        <form [formGroup]="bossForm">
-            <div formArrayName="columns" *ngFor="let character of columns.controls; let i = index">
-                <ng-container [formGroupName]="i">
-                    <div class="cell character-header vertical-align">
-                        <input type="text" class="character-input" placeholder="Name" formControlName="character" maxlength="12">
-                        <div class="hover-menu">
-                            <div class="clone button" (click)="clone(i)">Clone</div>
-                            <div class="delete button" (click)="delete(i)">Delete</div>
-                        </div>
-                    </div>
-                    <div formArrayName="character_bosses" *ngFor="let boss of character.get('character_bosses')['controls']; let j = index">
-                        <div class="cell character-row vertical-align" [formGroupName]="j" [ngClass]="{ 'row-darken-right': boss.value.darken }">
-                            <label class="cell-label">
-                                <input type="checkbox" formControlName="checked">
-
-
-
-
-
-
-
--->

@@ -21,6 +21,8 @@ export class HeaderComponent {
         this.name = 'IED Calculator';
       } else if (event.urlAfterRedirects === '/maplestory-helper/useful-resources') {
         this.name = 'Useful Resources';
+      } else if (event.urlAfterRedirects === '/maplestory-helper/about') {
+        this.name = 'About';
       }
     });
   }
