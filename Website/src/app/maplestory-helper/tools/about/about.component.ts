@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './about.component.html',
-  styleUrls: ['./ABOUT.component.css', '../../maplestory-helper.component.css']
+  styleUrls: ['./about.component.css', '../../maplestory-helper.component.css']
 })
 export class AboutComponent {
 
