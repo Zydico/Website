@@ -67,6 +67,8 @@ form {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
+        padding-left: 10px;
+        padding-right: 5px;
         padding-bottom: 10px;
         gap: 10px;
         box-sizing: border-box;
@@ -80,5 +82,11 @@ form {
     
     #page {
         margin-left: 0;
+    }
+
+    .page-container {
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-top: 120px;
     }
 }

@@ -26,3 +26,9 @@ tr {
 tr:nth-child(even) {
     background-color: var(--table-row-background-light);
 }
+
+@media (width <= 800px) {
+    td {
+        font-size: 0.8rem;
+    }
+}

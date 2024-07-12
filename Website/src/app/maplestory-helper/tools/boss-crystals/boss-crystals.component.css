@@ -234,6 +234,18 @@ label {
     #income-header {
         font-size: 1.25rem;
     }
+
+    .cell {
+        font-size: 0.8rem;
+    }    
+
+    .boss-header, .boss-row {
+        width: 160px;
+    } 
+
+    .meso-header, .meso-row {
+        width: 110px;
+    }
     
     #bossing-header, #extra-header {
         font-size: 1.1rem;
