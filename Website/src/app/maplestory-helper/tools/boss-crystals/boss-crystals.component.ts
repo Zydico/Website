@@ -143,7 +143,11 @@ export class BossCrystalsComponent implements OnInit {
   }
 
   clearData(): void {
-    localStorage.clear();
+    localStorage.removeItem('boss-crystals-server');
+    localStorage.removeItem('boss-crystals-columns');
+    localStorage.removeItem('boss-crystals-ursus');
+    localStorage.removeItem('boss-crystals-maple-tour');
+    localStorage.removeItem('boss-crystals-highest-level');
     location.reload();
   }
 
