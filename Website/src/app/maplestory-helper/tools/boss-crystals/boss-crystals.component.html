@@ -45,14 +45,14 @@
                         </div>
                     </div>
                     <div formArrayName="character_bosses" *ngFor="let boss of character.get('character_bosses')['controls']; let j = index">
-                        <div class="cell character-row vertical-align" [formGroupName]="j" [ngClass]="{ 'row-darken-right': boss.value.darken }">
+                        <div class="cell character-row vertical-align" [formGroupName]="j" [ngClass]="{ 'row-darken-right': isDarkCell(boss.value.name) }">
                             <label class="cell-label">
                                 <input type="checkbox" formControlName="checked">
                                 <ng-container *ngIf="boss.value.daily">
-                                    <input type="number" formControlName="weekly_clears" min="1" max="7" class="party-size" (focusout)="clearFix($event)">
+                                    <input type="number" formControlName="weekly_clears" min="1" max="7" class="party-size" (focusout)="limitValue($event, 1, 7, 1)">
                                 </ng-container>
                                 <ng-container *ngIf="!boss.value.daily">
-                                    <input type="number" formControlName="party_size" min="1" max="6" class="party-size" (focusout)="partyFix($event)">
+                                    <input type="number" formControlName="party_size" min="1" max="6" class="party-size" (focusout)="limitValue($event, 1, 6, 1)">
                                 </ng-container>
                                 <div class="speech-bubble">
                                     {{getSplitMesos(boss)}}
@@ -75,7 +75,7 @@
             <div class="extra-income-container">
                 <div class="extra-income">
                     <label for="level">Highest Level</label>
-                    <input type="number" formControlName="highest_level" min="1" max="300" id="level" name="level" (focusout)="levelFix($event)">
+                    <input type="number" formControlName="highest_level" min="1" max="300" id="level" name="level" (focusout)="limitValue($event, 1, 300, 280)">
                 </div>
                 <div class="extra-income">
                     <input type="checkbox" id="ursus" name="ursus" formControlName="ursus">

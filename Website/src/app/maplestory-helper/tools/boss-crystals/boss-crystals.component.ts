@@ -68,18 +68,16 @@ export class BossCrystalsComponent implements OnInit {
     ursus: this.formBuilder.control(false),
     maple_tour: this.formBuilder.control(false),
     highest_level: this.formBuilder.control(280),
-  });
+  }); 
 
   constructor(private readonly formBuilder: FormBuilder) {}
 
   ngOnInit() {
-    //localStorage.clear();
-    let server = localStorage.getItem('boss-crystals-server')
-    if (localStorage.getItem('boss-crystals-server')) {
-      // set server
+    let server = localStorage.getItem('boss-crystals-server');
+    if (localStorage.getItem('boss-crystals-server')) { // If local storage exists (second time user)
+      // fill server
       this.bossForm.get('server').setValue(server);
-
-      // set columns
+      // fill columns
       let columns = JSON.parse(localStorage.getItem('boss-crystals-columns'));
       for (let character of columns) {
         let column = this.formBuilder.group({
@@ -88,6 +86,7 @@ export class BossCrystalsComponent implements OnInit {
         })
         let character_bosses = character.character_bosses;
         let copy_character_bosses = column.get('character_bosses') as FormArray;
+        // adding new rows that they haven't seen before (new updates)
         for (let row of this.bosses) {
           let result = character_bosses.find(boss => boss.name === row.name);
           let index = 0;
@@ -96,21 +95,20 @@ export class BossCrystalsComponent implements OnInit {
               name: row.name,
               checked: false,
               party_size: 1,
-              darken: row.darken,
               daily: row.daily,
               weekly_clears: 1,
             });
             index++;
           }
         }
+        // looping through and updating all rows
         for (let row of character_bosses) {
           let copy_row = this.formBuilder.group({
             name: this.formBuilder.control(row.name),
             checked: this.formBuilder.control(row.checked),
             party_size: this.formBuilder.control(row.party_size),
-            darken: this.formBuilder.control(row.darken),
-            daily: row.daily ? this.formBuilder.control(row.daily) : this.formBuilder.control(false),
-            weekly_clears: row.weekly_clears ? this.formBuilder.control(row.weekly_clears) : this.formBuilder.control(1)
+            daily: this.formBuilder.control(row.daily ? row.daily : false),
+            weekly_clears: this.formBuilder.control(row.weekly_clears ? row.weekly_clears : 1)
           })
           let result = this.bosses.find(boss => boss.name === row.name);
           if (result.shared) {
@@ -121,6 +119,7 @@ export class BossCrystalsComponent implements OnInit {
         for (let row of copy_character_bosses.controls) {
           let result = this.bosses.find(boss => boss.name === row.value.name);
           if (result.shared && row.value.checked) {
+            // manually disabling shared bosses
             this.triggerCheckboxCheck(copy_character_bosses, result.shared, row.value.checked);
           }
         }
@@ -132,6 +131,7 @@ export class BossCrystalsComponent implements OnInit {
       this.extraForm.get('maple_tour').setValue(localStorage.getItem('boss-crystals-maple-tour') === 'true');
       this.extraForm.get('highest_level').setValue(localStorage.getItem('boss-crystals-highest-level'));
     } else {
+      // if no local storage, add empty column
       this.addColumn();
     }
     this.bossForm.valueChanges.subscribe(() => {
@@ -149,6 +149,15 @@ export class BossCrystalsComponent implements OnInit {
     localStorage.removeItem('boss-crystals-maple-tour');
     localStorage.removeItem('boss-crystals-highest-level');
     location.reload();
+  }
+
+  isDarkCell(name: string): boolean {
+    let result = this.bosses.find(boss => boss.name === name);
+    if (result.darken) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   updateStorage(): void {
@@ -183,7 +192,6 @@ export class BossCrystalsComponent implements OnInit {
         name: this.formBuilder.control(row.value.name),
         checked: this.formBuilder.control(row.value.checked),
         party_size: this.formBuilder.control(row.value.party_size),
-        darken: this.formBuilder.control(row.value.darken),
         daily: this.formBuilder.control(row.value.daily),
         weekly_clears: this.formBuilder.control(row.value.weekly_clears)
       })
@@ -218,7 +226,6 @@ export class BossCrystalsComponent implements OnInit {
         name: this.formBuilder.control(boss.name),
         checked: this.formBuilder.control(boss.preset && boss.preset.includes(preset)),
         party_size: this.formBuilder.control(1),
-        darken: this.formBuilder.control(boss.darken),
         daily: this.formBuilder.control(boss.daily),
         weekly_clears: this.formBuilder.control(1),
       });
@@ -335,39 +342,18 @@ export class BossCrystalsComponent implements OnInit {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
 
-  // Limits party size to between 1 and 6
-  partyFix(event: Event) {
+  // Limits the value between two numbers
+  limitValue(event: Event, min: number, max: number, default_value: number) {
     let target = event.target as HTMLInputElement;
     let value = parseInt(target.value);
-    if (value < 1) {
-      target.value = '1';
+    if (!value) {
+      target.value = default_value.toString();
     }
-    if (value > 6) {
-      target.value = '6';
+    if (value < min) {
+      target.value = min.toString();
     }
-  }
-
-  // Limits party size to between 1 and 7
-  clearFix(event: Event) {
-    let target = event.target as HTMLInputElement;
-    let value = parseInt(target.value);
-    if (value < 1) {
-      target.value = '1';
-    }
-    if (value > 7) {
-      target.value = '7';
-    }
-  }
-
-  // Limits level size to between 1 and 300
-  levelFix(event: Event) {
-    let target = event.target as HTMLInputElement;
-    let value = parseInt(target.value);
-    if (value < 1) {
-      target.value = '1';
-    }
-    if (value > 300) {
-      target.value = '300';
+    if (value > max) {
+      target.value = max.toString();
     }
   }
   
