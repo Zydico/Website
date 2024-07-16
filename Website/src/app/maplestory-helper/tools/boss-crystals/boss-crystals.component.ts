@@ -83,14 +83,14 @@ export class BossCrystalsComponent implements OnInit {
       // fill server
       this.bossForm.get('server').setValue(server);
       // fill columns
-      let columns: [any] = JSON.parse(localStorage.getItem('boss-crystals-columns'));
+      let columns = JSON.parse(localStorage.getItem('boss-crystals-columns'));
       for (let character of columns) {
         let column: FormGroup = this.formBuilder.group({
           character: this.formBuilder.control<string>(character.character),
-          character_bosses: this.formBuilder.array<FormGroup>([])
+          character_bosses: this.formBuilder.array([])
         })
-        let character_bosses: [any] = character.character_bosses;
-        let copy_character_bosses: FormArray<FormGroup> = column.get('character_bosses') as FormArray;
+        let character_bosses = character.character_bosses;
+        let copy_character_bosses: FormArray = column.get('character_bosses') as FormArray;
         // adding new rows that they haven't seen before (new updates)
         for (let row of this.bosses) {
           let result: any = character_bosses.find(boss => boss.name === row.name);
@@ -115,10 +115,10 @@ export class BossCrystalsComponent implements OnInit {
             daily: this.formBuilder.control<boolean>(row.daily ? row.daily : false),
             weekly_clears: this.formBuilder.control<number>(row.weekly_clears ? row.weekly_clears : 1)
           })
-          // let result: any = this.bosses.find(boss => boss.name === row.name);
-          // if (result.shared) {
-          //   this.addCheckboxCheck(copy_character_bosses, copy_row, result.shared);
-          // }
+          let result: any = this.bosses.find(boss => boss.name === row.name);
+          if (result.shared) {
+            this.addCheckboxCheck(copy_character_bosses, copy_row, result.shared);
+          }
           copy_character_bosses.push(copy_row);
         }
         for (let row of copy_character_bosses.controls) {
