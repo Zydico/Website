@@ -34,7 +34,7 @@
             </div>
             @for (boss of bosses; track $index) {
                 <div class="cell meso-row vertical-align" [ngClass]="{ 'row-darken': boss.darken }">
-                    {{numberWithCommas(bossForm.get('server').value == 'reboot' ? boss.meso : boss.meso/5)}}
+                    {{(bossForm.get('server').value == 'reboot' ? boss.meso : boss.meso/5) | numberWithCommas}}
                 </div>
             }
         </div>
@@ -60,7 +60,7 @@
                                             <input type="number" formControlName="party_size" min="1" max="6" class="party-size" (focusout)="limitValue($event, 1, 6, 1)">
                                         }
                                         <div class="speech-bubble">
-                                            {{getSplitMesos(boss)}}
+                                            <!-- {{getSplitMesos(boss)}} -->
                                         </div>
                                     </label>
                                 </div>
@@ -75,9 +75,9 @@
         <div id="income-header">Weekly Income</div>
         <div id="bossing-header">Bossing</div>
         @for (character of columns.controls; track $index; let i = $index) {
-            <div class="results-character">
+            <!-- <div class="results-character">
                 {{(character.get('character').value ? character.get('character').value : 'Unnamed character (column ' + (i+1) + ')') + ': ' + calculateIncome(i)}}
-            </div>
+            </div> -->
         }
         <div id="extra-header">Extra Income</div>
         <form [formGroup]="extraForm">
@@ -89,8 +89,8 @@
                 <div class="extra-income">
                     <input type="checkbox" id="ursus" name="ursus" formControlName="ursus">
                     <label for="ursus">Ursus 
-                        @if (extraForm.get('ursus').value) {
-                            <span>{{ '(' + numberWithCommas(getUrsus()) + ' Mesos)' }}</span>
+                        @if (extraForm.get('ursus').value && extraForm.get('highest_level').value) {
+                            <span>{{ '(' + (extraForm.get('highest_level').value | ursus:bossForm.get('server').value | numberWithCommas) + ' Mesos)' }}</span>
                         }
                     </label>
                 </div>
@@ -98,7 +98,7 @@
                     <input type="checkbox" id="maple-tour" name="maple-tour" formControlName="maple_tour">
                     <label for="maple-tour">Maple Tour 
                         @if (extraForm.get('maple_tour').value) {
-                            <span>{{ '(' + numberWithCommas(getMapleTour()) + ' Mesos)' }}</span>
+                            <span>{{ '(' + (bossForm.get('server').value | mapleTour | numberWithCommas) + ' Mesos)' }}</span>
                         }
                     </label>
                 </div>

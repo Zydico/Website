@@ -1,13 +1,17 @@
 import { NgClass } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NumberWithCommasPipe } from './number-with-commas.pipe';
+import { UrsusPipe } from './ursus.pipe';
+import { MapleTourPipe } from './maple-tour.pipe';
 
 @Component({
   selector: 'app-boss-crystals',
   standalone: true,
-  imports: [ReactiveFormsModule, NgClass, FormsModule],
+  imports: [ReactiveFormsModule, NgClass, FormsModule, NumberWithCommasPipe, UrsusPipe, MapleTourPipe],
+  providers: [NumberWithCommasPipe, UrsusPipe, MapleTourPipe],
   templateUrl: './boss-crystals.component.html',
-  styleUrls: ['./boss-crystals.component.css', '../../maplestory-helper.component.css']
+  styleUrls: ['./boss-crystals.component.css', '../../maplestory-helper.component.css'],
 })
 export class BossCrystalsComponent implements OnInit {
   bosses = [
@@ -70,7 +74,7 @@ export class BossCrystalsComponent implements OnInit {
     highest_level: this.formBuilder.control<number>(280),
   }); 
 
-  constructor(private readonly formBuilder: FormBuilder) {
+  constructor(private readonly formBuilder: FormBuilder, private numberWithCommas: NumberWithCommasPipe, private ursusPipe: UrsusPipe, private mapleTourPipe: MapleTourPipe) {
   }
 
   ngOnInit() {
@@ -111,10 +115,10 @@ export class BossCrystalsComponent implements OnInit {
             daily: this.formBuilder.control<boolean>(row.daily ? row.daily : false),
             weekly_clears: this.formBuilder.control<number>(row.weekly_clears ? row.weekly_clears : 1)
           })
-          let result: any = this.bosses.find(boss => boss.name === row.name);
-          if (result.shared) {
-            this.addCheckboxCheck(copy_character_bosses, copy_row, result.shared);
-          }
+          // let result: any = this.bosses.find(boss => boss.name === row.name);
+          // if (result.shared) {
+          //   this.addCheckboxCheck(copy_character_bosses, copy_row, result.shared);
+          // }
           copy_character_bosses.push(copy_row);
         }
         for (let row of copy_character_bosses.controls) {
@@ -287,17 +291,7 @@ export class BossCrystalsComponent implements OnInit {
         total += (this.bossForm.get('server').value == 'reboot' ? meso : meso/5) / row.value.party_size;
       }
     }
-    return this.numberWithCommas(Math.floor(total)) + ' Mesos [ Crystals: ' + crystals + ' ]';
-  }
-
-  getUrsus(): number {
-    let ursus = Math.round(this.extraForm.get('highest_level').value * 138206.25 * 3 * 7 / (this.bossForm.get('server').value == 'reboot' ? 1 : 5));
-    return ursus;
-  }
-
-  getMapleTour(): number {
-    let tour = Math.round(24510668 * 14 / (this.bossForm.get('server').value == 'reboot' ? 1 : 5));
-    return tour;
+    return this.numberWithCommas.transform(Math.floor(total)) + ' Mesos [ Crystals: ' + crystals + ' ]';
   }
 
   calculateTotalIncome() {
@@ -323,12 +317,12 @@ export class BossCrystalsComponent implements OnInit {
       }
     }
     if (this.extraForm.get('ursus').value && this.extraForm.get('highest_level').value) {
-      total += this.getUrsus();
+      total += this.ursusPipe.transform(this.extraForm.get('highest_level').value, this.bossForm.get('server').value);
     }
     if (this.extraForm.get('maple_tour').value) {
-      total += this.getMapleTour();
+      total += this.mapleTourPipe.transform(this.bossForm.get('server').value);
     }
-    return this.numberWithCommas(Math.floor(total)) + ' Mesos [ Crystals: ' + crystals + ' / 180 ]';
+    return this.numberWithCommas.transform(Math.floor(total)) + ' Mesos [ Crystals: ' + crystals + ' / 180 ]';
   }
 
   // Returns the mesos for a boss divided by the party size
@@ -338,12 +332,7 @@ export class BossCrystalsComponent implements OnInit {
     if (boss.value.daily) {
       meso = meso * boss.value.weekly_clears;
     }
-    return this.numberWithCommas(Math.floor((this.bossForm.get('server').value == 'reboot' ? meso : meso/5) / boss.value.party_size));
-  }
-
-  // Method that converts a number to one separated with commas
-  numberWithCommas(number: number) {
-    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return this.numberWithCommas.transform(Math.floor((this.bossForm.get('server').value == 'reboot' ? meso : meso/5) / boss.value.party_size));
   }
 
   // Limits the value between two numbers
