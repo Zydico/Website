@@ -1,11 +1,11 @@
-import { NgClass, NgFor, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-boss-crystals',
   standalone: true,
-  imports: [NgFor, ReactiveFormsModule, NgClass, NgIf, FormsModule],
+  imports: [ReactiveFormsModule, NgClass, FormsModule],
   templateUrl: './boss-crystals.component.html',
   styleUrls: ['./boss-crystals.component.css', '../../maplestory-helper.component.css']
 })
@@ -55,41 +55,42 @@ export class BossCrystalsComponent implements OnInit {
     {name: 'Kalos the Guardian (Chaos)', meso: 2000000000, shared: ['Kalos the Guardian (Easy)', 'Kalos the Guardian (Normal)', 'Kalos the Guardian (Extreme)'], darken: true, url: 'Kalos'},
     {name: 'Kalos the Guardian (Extreme)', meso: 4000000000, shared: ['Kalos the Guardian (Easy)', 'Kalos the Guardian (Normal)', 'Kalos the Guardian (Chaos)'], darken: true, url: 'Kalos'},
     {name: 'Kaling (Easy)', meso: 825000000, shared: ['Kaling (Normal)', 'Kaling (Hard)', 'Kaling (Extreme)'], url: 'Kaling'},
-    {name: 'Kaling (Normal)', meso: 1150000000, shared: ['Kaling (Easy), Kaling (Hard)', 'Kaling (Extreme)'], url: 'Kaling'},
+    {name: 'Kaling (Normal)', meso: 1150000000, shared: ['Kaling (Easy)', 'Kaling (Hard)', 'Kaling (Extreme)'], url: 'Kaling'},
     {name: 'Kaling (Hard)', meso: 2000000000, shared: ['Kaling (Easy)', 'Kaling (Normal)', 'Kaling (Extreme)'], url: 'Kaling'},
     {name: 'Kaling (Extreme)', meso: 4600000000, shared: ['Kaling (Easy)', 'Kaling (Normal)', 'Kaling (Hard)'], url: 'Kaling'}
   ]
 
   bossForm: FormGroup = this.formBuilder.group({
-    server: this.formBuilder.control('reboot'),
-    columns: this.formBuilder.array([])
+    server: this.formBuilder.control<string>('reboot'),
+    columns: this.formBuilder.array<FormGroup>([])
   });
   extraForm: FormGroup = this.formBuilder.group({
-    ursus: this.formBuilder.control(false),
-    maple_tour: this.formBuilder.control(false),
-    highest_level: this.formBuilder.control(280),
+    ursus: this.formBuilder.control<boolean>(false),
+    maple_tour: this.formBuilder.control<boolean>(false),
+    highest_level: this.formBuilder.control<number>(280),
   }); 
 
-  constructor(private readonly formBuilder: FormBuilder) {}
+  constructor(private readonly formBuilder: FormBuilder) {
+  }
 
   ngOnInit() {
-    let server = localStorage.getItem('boss-crystals-server');
-    if (localStorage.getItem('boss-crystals-server')) { // If local storage exists (second time user)
+    let server: string = localStorage.getItem('boss-crystals-server');
+    if (server) { // If local storage exists (second time user)
       // fill server
       this.bossForm.get('server').setValue(server);
       // fill columns
-      let columns = JSON.parse(localStorage.getItem('boss-crystals-columns'));
+      let columns: [any] = JSON.parse(localStorage.getItem('boss-crystals-columns'));
       for (let character of columns) {
-        let column = this.formBuilder.group({
-          character: this.formBuilder.control(character.character),
-          character_bosses: this.formBuilder.array([])
+        let column: FormGroup = this.formBuilder.group({
+          character: this.formBuilder.control<string>(character.character),
+          character_bosses: this.formBuilder.array<FormGroup>([])
         })
-        let character_bosses = character.character_bosses;
-        let copy_character_bosses = column.get('character_bosses') as FormArray;
+        let character_bosses: [any] = character.character_bosses;
+        let copy_character_bosses: FormArray<FormGroup> = column.get('character_bosses') as FormArray;
         // adding new rows that they haven't seen before (new updates)
         for (let row of this.bosses) {
-          let result = character_bosses.find(boss => boss.name === row.name);
-          let index = 0;
+          let result: any = character_bosses.find(boss => boss.name === row.name);
+          let index: number = 0;
           if (!result) {
             character_bosses.splice(index, 0, {
               name: row.name,
@@ -104,20 +105,20 @@ export class BossCrystalsComponent implements OnInit {
         // looping through and updating all rows
         for (let row of character_bosses) {
           let copy_row = this.formBuilder.group({
-            name: this.formBuilder.control(row.name),
-            checked: this.formBuilder.control(row.checked),
-            party_size: this.formBuilder.control(row.party_size),
-            daily: this.formBuilder.control(row.daily ? row.daily : false),
-            weekly_clears: this.formBuilder.control(row.weekly_clears ? row.weekly_clears : 1)
+            name: this.formBuilder.control<string>(row.name),
+            checked: this.formBuilder.control<boolean>(row.checked),
+            party_size: this.formBuilder.control<number>(row.party_size),
+            daily: this.formBuilder.control<boolean>(row.daily ? row.daily : false),
+            weekly_clears: this.formBuilder.control<number>(row.weekly_clears ? row.weekly_clears : 1)
           })
-          let result = this.bosses.find(boss => boss.name === row.name);
+          let result: any = this.bosses.find(boss => boss.name === row.name);
           if (result.shared) {
             this.addCheckboxCheck(copy_character_bosses, copy_row, result.shared);
           }
           copy_character_bosses.push(copy_row);
         }
         for (let row of copy_character_bosses.controls) {
-          let result = this.bosses.find(boss => boss.name === row.value.name);
+          let result: any = this.bosses.find(boss => boss.name === row.value.name);
           if (result.shared && row.value.checked) {
             // manually disabling shared bosses
             this.triggerCheckboxCheck(copy_character_bosses, result.shared, row.value.checked);
@@ -148,12 +149,13 @@ export class BossCrystalsComponent implements OnInit {
     localStorage.removeItem('boss-crystals-ursus');
     localStorage.removeItem('boss-crystals-maple-tour');
     localStorage.removeItem('boss-crystals-highest-level');
-    location.reload();
+    location.reload(); // refresh page
   }
 
+  // returns whether or not the boss is a dark cell in the table
   isDarkCell(name: string): boolean {
-    let result = this.bosses.find(boss => boss.name === name);
-    if (result.darken) {
+    let result: any = this.bosses.find(boss => boss.name === name);
+    if (result.darken) { // check if boss have darken property
       return true;
     } else {
       return false;
@@ -175,34 +177,34 @@ export class BossCrystalsComponent implements OnInit {
     localStorage.setItem('boss-crystals-highest-level', extraForm.get('highest_level').value);
   }
 
-  get columns(): FormArray {
+  get columns(): FormArray<FormGroup> {
     return (this.bossForm.get('columns') as FormArray);
   }
 
   clone(index: number) {
     let reference_column = this.columns.at(index);
-    let copy_column = this.formBuilder.group({
-      character: this.formBuilder.control(reference_column.get('character').value),
-      character_bosses: this.formBuilder.array([])
+    let copy_column: FormGroup = this.formBuilder.group({
+      character: this.formBuilder.control<string>(reference_column.get('character').value),
+      character_bosses: this.formBuilder.array<FormGroup>([])
     })
-    let reference_character_bosses = reference_column.get('character_bosses') as FormArray;
-    let copy_character_bosses = copy_column.get('character_bosses') as FormArray;
+    let reference_character_bosses: FormArray<FormGroup> = reference_column.get('character_bosses') as FormArray;
+    let copy_character_bosses: FormArray<FormGroup> = copy_column.get('character_bosses') as FormArray;
     for (let row of reference_character_bosses.controls) {
-      let copy_row = this.formBuilder.group({
-        name: this.formBuilder.control(row.value.name),
-        checked: this.formBuilder.control(row.value.checked),
-        party_size: this.formBuilder.control(row.value.party_size),
-        daily: this.formBuilder.control(row.value.daily),
-        weekly_clears: this.formBuilder.control(row.value.weekly_clears)
+      let copy_row: FormGroup = this.formBuilder.group({
+        name: this.formBuilder.control<string>(row.value.name),
+        checked: this.formBuilder.control<boolean>(row.value.checked),
+        party_size: this.formBuilder.control<number>(row.value.party_size),
+        daily: this.formBuilder.control<boolean>(row.value.daily),
+        weekly_clears: this.formBuilder.control<number>(row.value.weekly_clears)
       })
-      let result = this.bosses.find(boss => boss.name === row.value.name);
+      let result: any = this.bosses.find(boss => boss.name === row.value.name);
       if (result.shared) {
         this.addCheckboxCheck(copy_character_bosses, copy_row, result.shared);
       }
       copy_character_bosses.push(copy_row);
     }
     for (let row of copy_character_bosses.controls) {
-      let result = this.bosses.find(boss => boss.name === row.value.name);
+      let result: any = this.bosses.find(boss => boss.name === row.value.name);
       if (result.shared && row.value.checked) {
         this.triggerCheckboxCheck(copy_character_bosses, result.shared, row.value.checked);
       }
@@ -210,24 +212,26 @@ export class BossCrystalsComponent implements OnInit {
     this.columns.push(copy_column);
   }
   
+  // delete table column and specific index
   delete(index: number) {
     this.columns.removeAt(index);
   }
 
+  // adds an empty column
   addColumn(preset: string = '') {
-    let column = this.formBuilder.group({
-      character: this.formBuilder.control(''),
-      character_bosses: this.formBuilder.array([])
+    let column: FormGroup = this.formBuilder.group({
+      character: this.formBuilder.control<string>(''),
+      character_bosses: this.formBuilder.array<FormGroup>([])
     });
-    let character_bosses = column.get('character_bosses') as FormArray;
+    let character_bosses: FormArray<FormGroup> = column.get('character_bosses') as FormArray;
      
     for (let boss of this.bosses) {
       let row = this.formBuilder.group({
-        name: this.formBuilder.control(boss.name),
-        checked: this.formBuilder.control(boss.preset && boss.preset.includes(preset)),
-        party_size: this.formBuilder.control(1),
-        daily: this.formBuilder.control(boss.daily),
-        weekly_clears: this.formBuilder.control(1),
+        name: this.formBuilder.control<string>(boss.name),
+        checked: this.formBuilder.control<boolean>(boss.preset && boss.preset.includes(preset)),
+        party_size: this.formBuilder.control<number>(1),
+        daily: this.formBuilder.control<boolean>(boss.daily),
+        weekly_clears: this.formBuilder.control<number>(1),
       });
       if (boss.shared) {
         this.addCheckboxCheck(character_bosses, row, boss.shared);
@@ -235,7 +239,7 @@ export class BossCrystalsComponent implements OnInit {
       character_bosses.push(row);
     }
     for (let row of character_bosses.controls) {
-      let result = this.bosses.find(boss => boss.name === row.value.name);
+      let result: any = this.bosses.find(boss => boss.name === row.value.name);
       if (result.shared && row.value.checked) {
         this.triggerCheckboxCheck(character_bosses, result.shared, row.value.checked);
       }
@@ -243,13 +247,13 @@ export class BossCrystalsComponent implements OnInit {
     this.columns.push(column);
   }
 
-  addCheckboxCheck(character_bosses, row, shared) {
+  addCheckboxCheck(character_bosses: FormArray<FormGroup>, row: any, shared: Array<any>) {
     row.get('checked').valueChanges.subscribe(value => {
       this.triggerCheckboxCheck(character_bosses, shared, value);
     })
   }
 
-  triggerCheckboxCheck(character_bosses, shared, value) {
+  triggerCheckboxCheck(character_bosses: FormArray<FormGroup>, shared: Array<any>, value: boolean) {
     if (value) {
       for (let boss of character_bosses.controls) {
         if (shared.includes(boss.value.name)) {

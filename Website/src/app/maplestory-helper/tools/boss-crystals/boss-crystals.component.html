@@ -21,55 +21,64 @@
             <div class="cell boss-header vertical-align">
                 Boss
             </div>
-            <div class="cell boss-row vertical-align" *ngFor="let boss of bosses; let i=index" [ngClass]="{ 'row-darken': boss.darken }">
-                <img class="boss-icon" [src]="'Boss Crystals/' + boss.url + '.png'" loading="lazy">
-                {{boss.name}}
-            </div>
+            @for (boss of bosses; track $index) {
+                <div class="cell boss-row vertical-align" [ngClass]="{ 'row-darken': boss.darken }">
+                    <img class="boss-icon" [src]="'Boss Crystals/' + boss.url + '.png'" loading="lazy">
+                    {{boss.name}}
+                </div>
+            }
         </div>
         <div>
             <div class="cell meso-header vertical-align">
                 Mesos
             </div>
-            <div class="cell meso-row vertical-align" *ngFor="let boss of bosses; let i=index" [ngClass]="{ 'row-darken': boss.darken }">
-                {{numberWithCommas(bossForm.get('server').value == 'reboot' ? boss.meso : boss.meso/5)}}
-            </div>
+            @for (boss of bosses; track $index) {
+                <div class="cell meso-row vertical-align" [ngClass]="{ 'row-darken': boss.darken }">
+                    {{numberWithCommas(bossForm.get('server').value == 'reboot' ? boss.meso : boss.meso/5)}}
+                </div>
+            }
         </div>
         <form [formGroup]="bossForm">
-            <div formArrayName="columns" *ngFor="let character of columns.controls; let i = index">
-                <ng-container [formGroupName]="i">
-                    <div class="cell character-header vertical-align">
-                        <input type="text" class="character-input" placeholder="Name" formControlName="character" maxlength="12">
-                        <div class="hover-menu">
-                            <div class="clone button" (click)="clone(i)">Clone</div>
-                            <div class="delete button" (click)="delete(i)">Delete</div>
+            @for (character of columns.controls; track $index; let i = $index) {
+                <div formArrayName="columns">
+                    <ng-container [formGroupName]="i">
+                        <div class="cell character-header vertical-align">
+                            <input type="text" class="character-input" placeholder="Name" formControlName="character" maxlength="12">
+                            <div class="hover-menu">
+                                <div class="clone button" (click)="clone(i)">Clone</div>
+                                <div class="delete button" (click)="delete(i)">Delete</div>
+                            </div>
                         </div>
-                    </div>
-                    <div formArrayName="character_bosses" *ngFor="let boss of character.get('character_bosses')['controls']; let j = index">
-                        <div class="cell character-row vertical-align" [formGroupName]="j" [ngClass]="{ 'row-darken-right': isDarkCell(boss.value.name) }">
-                            <label class="cell-label">
-                                <input type="checkbox" formControlName="checked">
-                                <ng-container *ngIf="boss.value.daily">
-                                    <input type="number" formControlName="weekly_clears" min="1" max="7" class="party-size" (focusout)="limitValue($event, 1, 7, 1)">
-                                </ng-container>
-                                <ng-container *ngIf="!boss.value.daily">
-                                    <input type="number" formControlName="party_size" min="1" max="6" class="party-size" (focusout)="limitValue($event, 1, 6, 1)">
-                                </ng-container>
-                                <div class="speech-bubble">
-                                    {{getSplitMesos(boss)}}
+                        @for (boss of character.get('character_bosses')['controls']; track $index; let j = $index) {
+                            <div formArrayName="character_bosses">
+                                <div class="cell character-row vertical-align" [formGroupName]="j" [ngClass]="{ 'row-darken-right': isDarkCell(boss.value.name) }">
+                                    <label class="cell-label">
+                                        <input type="checkbox" formControlName="checked">
+                                        @if (boss.value.daily) {
+                                            <input type="number" formControlName="weekly_clears" min="1" max="7" class="party-size" (focusout)="limitValue($event, 1, 7, 1)">
+                                        } @else {
+                                            <input type="number" formControlName="party_size" min="1" max="6" class="party-size" (focusout)="limitValue($event, 1, 6, 1)">
+                                        }
+                                        <div class="speech-bubble">
+                                            {{getSplitMesos(boss)}}
+                                        </div>
+                                    </label>
                                 </div>
-                            </label>
-                        </div>
-                    </div>
-                </ng-container>
-            </div>
+                            </div>
+                        }
+                    </ng-container>
+                </div>
+            }
         </form>
     </div>
     <div id="results" class="panel">
         <div id="income-header">Weekly Income</div>
         <div id="bossing-header">Bossing</div>
-        <div *ngFor="let character of columns.controls; let i = index" class="results-character">
-            {{(character.get('character').value ? character.get('character').value : 'Unnamed character (column ' + (i+1) + ')') + ': ' + calculateIncome(i)}}
-        </div>
+        @for (character of columns.controls; track $index; let i = $index) {
+            <div class="results-character">
+                {{(character.get('character').value ? character.get('character').value : 'Unnamed character (column ' + (i+1) + ')') + ': ' + calculateIncome(i)}}
+            </div>
+        }
         <div id="extra-header">Extra Income</div>
         <form [formGroup]="extraForm">
             <div class="extra-income-container">
@@ -79,11 +88,19 @@
                 </div>
                 <div class="extra-income">
                     <input type="checkbox" id="ursus" name="ursus" formControlName="ursus">
-                    <label for="ursus">Ursus <span *ngIf="extraForm.get('ursus').value">{{ '(' + numberWithCommas(getUrsus()) + ' Mesos)' }}</span></label>
+                    <label for="ursus">Ursus 
+                        @if (extraForm.get('ursus').value) {
+                            <span>{{ '(' + numberWithCommas(getUrsus()) + ' Mesos)' }}</span>
+                        }
+                    </label>
                 </div>
                 <div class="extra-income">
                     <input type="checkbox" id="maple-tour" name="maple-tour" formControlName="maple_tour">
-                    <label for="maple-tour">Maple Tour <span *ngIf="extraForm.get('maple_tour').value">{{ '(' + numberWithCommas(getMapleTour()) + ' Mesos)' }}</span></label>
+                    <label for="maple-tour">Maple Tour 
+                        @if (extraForm.get('maple_tour').value) {
+                            <span>{{ '(' + numberWithCommas(getMapleTour()) + ' Mesos)' }}</span>
+                        }
+                    </label>
                 </div>
             </div>
         </form>
