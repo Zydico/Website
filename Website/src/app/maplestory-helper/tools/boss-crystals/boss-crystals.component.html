@@ -75,9 +75,9 @@
         <div id="income-header">Weekly Income</div>
         <div id="bossing-header">Bossing</div>
         @for (character of columns.controls; track $index; let i = $index) {
-            <!-- <div class="results-character">
+            <div class="results-character">
                 {{(character.get('character').value ? character.get('character').value : 'Unnamed character (column ' + (i+1) + ')') + ': ' + calculateIncome(i)}}
-            </div> -->
+            </div>
         }
         <div id="extra-header">Extra Income</div>
         <form [formGroup]="extraForm">
