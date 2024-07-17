@@ -60,7 +60,10 @@
                                             <input type="number" formControlName="party_size" min="1" max="6" class="party-size" (focusout)="limitValue($event, 1, 6, 1)">
                                         }
                                         <div class="speech-bubble">
-                                            {{getSplitMesos(boss)}}
+                                            {{
+                                                (character.get('character').value ? character.get('character').value : 'Column ' + (i+1)) + ': ' +
+                                                getSplitMesos(boss)
+                                            }}
                                         </div>
                                     </label>
                                 </div>
@@ -104,6 +107,6 @@
                 </div>
             </div>
         </form>
-        <div id="total-header">Total: {{calculateTotalIncome()}}</div>
+        <div id="total-header">Total: {{(totalIncome | numberWithCommas) + ' Mesos [ Crystals: '}}<span [ngClass]="{ 'invalid': crystals > 180 }">{{crystals}}</span> / 180 ]</div>
     </div>
 </div>

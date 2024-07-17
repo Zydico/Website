@@ -23,6 +23,11 @@
 
 /* Table */
 
+form {
+    display: flex;
+    overflow: auto;
+}
+
 #menu {
     margin-bottom: 40px;
 }
@@ -121,15 +126,19 @@
 }
 
 .speech-bubble {
+    color: var(--maplestory-dark-font);
     position: absolute;
-    top: -10px;
+    top: -20px;
     left: calc(100% - 25px);
     background-color: var(--white);
     white-space: nowrap;
     padding: 5px;
     border: 1px solid var(--table-header-background-dark);
     display: none;
+    line-height: 16px;
     z-index: 100;
+    text-wrap: wrap;
+    max-width: 150px;
 }
 
 .cell:hover .speech-bubble {
@@ -226,6 +235,10 @@ label {
 
 .results-character {
     font-size: 1rem;
+}
+
+.invalid {
+    color: rgb(255, 127, 127);
 }
 
 /* Mobile CSS */

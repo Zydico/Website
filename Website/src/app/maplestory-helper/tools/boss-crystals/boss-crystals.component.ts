@@ -73,6 +73,8 @@ export class BossCrystalsComponent implements OnInit {
     maple_tour: this.formBuilder.control<boolean>(false),
     highest_level: this.formBuilder.control<number>(280),
   }); 
+  totalIncome: number = 0;
+  crystals: number = 0;
 
   constructor(private readonly formBuilder: FormBuilder, private numberWithCommas: NumberWithCommasPipe, private ursusPipe: UrsusPipe, private mapleTourPipe: MapleTourPipe) {
   }
@@ -84,51 +86,55 @@ export class BossCrystalsComponent implements OnInit {
       this.bossForm.get('server').setValue(server);
       // fill columns
       let columns = JSON.parse(localStorage.getItem('boss-crystals-columns'));
+      
       for (let character of columns) {
-        let column: FormGroup = this.formBuilder.group({
-          character: this.formBuilder.control<string>(character.character),
-          character_bosses: this.formBuilder.array([])
-        })
-        let character_bosses = character.character_bosses;
-        let copy_character_bosses: FormArray = column.get('character_bosses') as FormArray;
-        // adding new rows that they haven't seen before (new updates)
-        for (let row of this.bosses) {
-          let result: any = character_bosses.find(boss => boss.name === row.name);
-          let index: number = 0;
-          if (!result) {
-            character_bosses.splice(index, 0, {
-              name: row.name,
-              checked: false,
-              party_size: 1,
-              daily: row.daily,
-              weekly_clears: 1,
-            });
-            index++;
-          }
-        }
-        // looping through and updating all rows
-        for (let row of character_bosses) {
-          let copy_row = this.formBuilder.group({
-            name: this.formBuilder.control<string>(row.name),
-            checked: this.formBuilder.control<boolean>(row.checked),
-            party_size: this.formBuilder.control<number>(row.party_size),
-            daily: this.formBuilder.control<boolean>(row.daily ? row.daily : false),
-            weekly_clears: this.formBuilder.control<number>(row.weekly_clears ? row.weekly_clears : 1)
+        setTimeout(() => {
+          let column: FormGroup = this.formBuilder.group({
+            character: this.formBuilder.control<string>(character.character),
+            character_bosses: this.formBuilder.array([])
           })
-          let result: any = this.bosses.find(boss => boss.name === row.name);
-          if (result.shared) {
-            this.addCheckboxCheck(copy_character_bosses, copy_row, result.shared);
+          let character_bosses = character.character_bosses;
+          let copy_character_bosses: FormArray = column.get('character_bosses') as FormArray;
+          // adding new rows that they haven't seen before (new updates)
+          for (let row of this.bosses) {
+            let result: any = character_bosses.find(boss => boss.name === row.name);
+            let index: number = 0;
+            if (!result) {
+              character_bosses.splice(index, 0, {
+                name: row.name,
+                checked: false,
+                party_size: 1,
+                daily: row.daily,
+                weekly_clears: 1,
+              });
+              index++;
+            }
           }
-          copy_character_bosses.push(copy_row);
-        }
-        for (let row of copy_character_bosses.controls) {
-          let result: any = this.bosses.find(boss => boss.name === row.value.name);
-          if (result.shared && row.value.checked) {
-            // manually disabling shared bosses
-            this.triggerCheckboxCheck(copy_character_bosses, result.shared, row.value.checked);
+          // looping through and updating all rows
+          for (let row of character_bosses) {
+            let copy_row = this.formBuilder.group({
+              name: this.formBuilder.control<string>(row.name),
+              checked: this.formBuilder.control<boolean>(row.checked),
+              party_size: this.formBuilder.control<number>(row.party_size),
+              daily: this.formBuilder.control<boolean>(row.daily ? row.daily : false),
+              weekly_clears: this.formBuilder.control<number>(row.weekly_clears ? row.weekly_clears : 1)
+            })
+            let result: any = this.bosses.find(boss => boss.name === row.name);
+            if (result.shared) {
+              this.addCheckboxCheck(copy_character_bosses, copy_row, result.shared);
+            }
+            copy_character_bosses.push(copy_row);
           }
-        }
-        this.columns.push(column);       
+
+          for (let row of copy_character_bosses.controls) {
+            let result: any = this.bosses.find(boss => boss.name === row.value.name);
+            if (result.shared && row.value.checked) {
+              // manually disabling shared bosses
+              this.triggerCheckboxCheck(copy_character_bosses, result.shared, row.value.checked);
+            }
+          }
+          this.columns.push(column);       
+        }, 0);
       }
 
       // set extra form
@@ -145,6 +151,7 @@ export class BossCrystalsComponent implements OnInit {
     this.extraForm.valueChanges.subscribe(() => {
       this.updateStorage();
     })
+    this.calculateTotalIncome();
   }
 
   clearData(): void {
@@ -179,6 +186,7 @@ export class BossCrystalsComponent implements OnInit {
     localStorage.setItem('boss-crystals-ursus', extraForm.get('ursus').value);
     localStorage.setItem('boss-crystals-maple-tour', extraForm.get('maple_tour').value);
     localStorage.setItem('boss-crystals-highest-level', extraForm.get('highest_level').value);
+    this.calculateTotalIncome();
   }
 
   get columns(): FormArray<FormGroup> {
@@ -294,7 +302,7 @@ export class BossCrystalsComponent implements OnInit {
     return this.numberWithCommas.transform(Math.floor(total)) + ' Mesos [ Crystals: ' + crystals + ' ]';
   }
 
-  calculateTotalIncome() {
+  calculateTotalIncome(): void {
     let total = 0;
     let crystals = 0;
     for (let i = 0; i < this.columns.length; i++) {
@@ -322,7 +330,8 @@ export class BossCrystalsComponent implements OnInit {
     if (this.extraForm.get('maple_tour').value) {
       total += this.mapleTourPipe.transform(this.bossForm.get('server').value);
     }
-    return this.numberWithCommas.transform(Math.floor(total)) + ' Mesos [ Crystals: ' + crystals + ' / 180 ]';
+    this.crystals = crystals;
+    this.totalIncome = Math.floor(total);
   }
 
   // Returns the mesos for a boss divided by the party size

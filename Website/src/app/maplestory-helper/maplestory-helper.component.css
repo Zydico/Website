@@ -54,6 +54,7 @@
 .table {
     display: flex;
     margin-bottom: 40px;
+    position: relative;
 }
 
 form {
