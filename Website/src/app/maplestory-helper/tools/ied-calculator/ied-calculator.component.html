@@ -1,24 +1,52 @@
 <div class="page-container">
-    Work in progress
-    <!-- <div id="menu" class="panel">
-        <div class="header">Visual Sources of IED</div>
-        <ng-container [formGroup]="iedForm">
+    Work in Progress<br><br>
+    <div class="panel">
+        <form [formGroup]="iedForm">
+            <div class="header">Link Skills</div>
             <table>
                 <tr>
-                    <th>Source</th>
+                    <th>Name</th>
                     <th>Value</th>
-                    <th>Add</th>
+                    <th>Include</th>
                 </tr>
-                <tr formArrayName="visual" *ngFor="let row of visuals.controls; let i=index">
-                    <ng-container [formGroupName]="i">
-                        <td [ngClass]="{ 'row-darken': row.value.darken }">{{row.value.source}}</td>
-                        <td [ngClass]="{ 'row-darken': row.value.darken }">{{row.value.ied}}%</td>
-                        <td [ngClass]="{ 'row-darken': row.value.darken }">
-                            <input type="checkbox" formControlName="checked">
-                        </td>
+                @for (link of linksArray.controls; track $index; let i = $index) {
+                    <ng-container formArrayName="links">
+                        <tr [formGroupName]="i">
+                            <td class="vertical-align"><img class="icon" [src]="'IED Icons/' + link.value.url + '.png'" loading="lazy">{{link.value.name}}</td>
+                            <td>{{link.value.percentage}}%</td>
+                            <td><label class="checkbox-label"><input type="checkbox" formControlName="include"></label></td>
+                        </tr>
                     </ng-container>
+                }
+            </table>
+            <div class="header">Equipment</div>
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Value</th>
+                    <th>Include</th>
                 </tr>
             </table>
-        </ng-container>
-    </div> -->
+            <div class="header">Miscellaneous</div>
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Value</th>
+                    <th>Include</th>
+                </tr>
+            </table>
+            <div class="header">Class Specific</div>
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Value</th>
+                    <th>Include</th>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <div class="panel">
+        <div class="header">Visual IED: {{visualIED.toFixed(2)}}%</div>
+        <div class="header">Effective IED: {{effectiveIED.toFixed(2)}}%</div>
+    </div>
 </div>

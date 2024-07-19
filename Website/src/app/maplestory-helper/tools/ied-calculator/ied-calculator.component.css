@@ -1,32 +1,8 @@
-.header {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: var(--black);
+form {
+    flex-wrap: wrap;
 }
 
-table {
-    border-spacing: 1px;
-    margin-bottom: 20px;
+.checkbox-label {
+    display: inline-block;
+    width: 100%;
 }
-
-th, td {
-    padding: 5px 10px;
-}
-
-th {
-    text-align: left;
-    background-color: var(--table-header-background-dark);
-    color: var(--white);
-}
-
-tr {
-    background-color: var(--table-row-background-light);
-}
-
-.row-darken {
-    background-color: var(--table-row-background-light-alternate);
-}
-
-/* tr:nth-child(even) {
-    background-color: var(--table-row-background-light);
-} */
