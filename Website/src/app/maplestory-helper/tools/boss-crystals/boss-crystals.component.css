@@ -25,7 +25,6 @@
 
 form {
     display: flex;
-    overflow: auto;
 }
 
 #menu {
