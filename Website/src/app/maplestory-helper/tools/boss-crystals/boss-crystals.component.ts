@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NumberWithCommasPipe } from './number-with-commas.pipe';
 import { UrsusPipe } from './ursus.pipe';
@@ -76,7 +76,7 @@ export class BossCrystalsComponent implements OnInit {
   totalIncome: number = 0;
   crystals: number = 0;
 
-  constructor(private readonly formBuilder: FormBuilder, private numberWithCommas: NumberWithCommasPipe, private ursusPipe: UrsusPipe, private mapleTourPipe: MapleTourPipe) {
+  constructor(private readonly formBuilder: FormBuilder, private cdr: ChangeDetectorRef, private numberWithCommas: NumberWithCommasPipe, private ursusPipe: UrsusPipe, private mapleTourPipe: MapleTourPipe) {
   }
 
   ngOnInit() {
@@ -227,6 +227,7 @@ export class BossCrystalsComponent implements OnInit {
   // delete table column and specific index
   delete(index: number) {
     this.columns.removeAt(index);
+    this.cdr.detectChanges();
   }
 
   // adds an empty column

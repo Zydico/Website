@@ -21,7 +21,7 @@
             <div class="cell boss-header vertical-align">
                 Boss
             </div>
-            @for (boss of bosses; track $index) {
+            @for (boss of bosses; track boss) {
                 <div class="cell boss-row vertical-align" [ngClass]="{ 'row-darken': boss.darken }">
                     <img class="boss-icon" [src]="'Boss Crystals/' + boss.url + '.png'" loading="lazy">
                     {{boss.name}}
@@ -32,14 +32,14 @@
             <div class="cell meso-header vertical-align">
                 Mesos
             </div>
-            @for (boss of bosses; track $index) {
+            @for (boss of bosses; track boss) {
                 <div class="cell meso-row vertical-align" [ngClass]="{ 'row-darken': boss.darken }">
                     {{(bossForm.get('server').value == 'reboot' ? boss.meso : boss.meso/5) | numberWithCommas}}
                 </div>
             }
         </div>
         <form [formGroup]="bossForm">
-            @for (character of columns.controls; track $index; let i = $index) {
+            @for (character of columns.controls; track character; let i = $index) {
                 <div formArrayName="columns">
                     <ng-container [formGroupName]="i">
                         <div class="cell character-header vertical-align">
@@ -49,7 +49,7 @@
                                 <div class="delete button" (click)="delete(i)">Delete</div>
                             </div>
                         </div>
-                        @for (boss of character.get('character_bosses')['controls']; track $index; let j = $index) {
+                        @for (boss of character.get('character_bosses')['controls']; track boss; let j = $index) {
                             <div formArrayName="character_bosses">
                                 <div class="cell character-row vertical-align" [formGroupName]="j" [ngClass]="{ 'row-darken-right': isDarkCell(boss.value.name) }">
                                     <label class="cell-label">
@@ -77,7 +77,7 @@
     <div id="results" class="panel">
         <div id="income-header">Weekly Income</div>
         <div id="bossing-header">Bossing</div>
-        @for (character of columns.controls; track $index; let i = $index) {
+        @for (character of columns.controls; track character; let i = $index) {
             <div class="results-character">
                 {{(character.get('character').value ? character.get('character').value : 'Unnamed character (column ' + (i+1) + ')') + ': ' + calculateIncome(i)}}
             </div>
