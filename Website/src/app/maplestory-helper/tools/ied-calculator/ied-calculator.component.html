@@ -1,6 +1,9 @@
 <div class="page-container">
     Work in Progress<br><br>
     <div class="panel">
+        Set effects will automatically be applied based on the selected equipment.
+    </div>
+    <div class="panel">
         <form [formGroup]="iedForm">
             <div class="header">Link Skills</div>
             <table>
@@ -9,7 +12,7 @@
                     <th>Value</th>
                     <th>Include</th>
                 </tr>
-                @for (link of linksArray.controls; track $index; let i = $index) {
+                @for (link of linksArray.controls; track link; let i = $index) {
                     <ng-container formArrayName="links">
                         <tr [formGroupName]="i">
                             <td class="vertical-align"><img class="icon" [src]="'IED Icons/' + link.value.url + '.png'" loading="lazy">{{link.value.name}}</td>
@@ -22,9 +25,81 @@
             <div class="header">Equipment</div>
             <table>
                 <tr>
+                    <th>Type</th>
                     <th>Name</th>
                     <th>Value</th>
-                    <th>Include</th>
+                </tr>
+                <tr>
+                    <td>Hat</td>
+                    <td class="vertical-align">
+                        <img class="icon" [src]="'IED Icons/' + getValue(hats, iedForm.get('hat').value, 'url') + '.png'">
+                        <select formControlName="hat">
+                            @for (item of hats; track item; let i = $index) {
+                                <option>{{item.name}}</option>
+                            }
+                        </select>
+                    </td>
+                    <td>{{getValue(hats, iedForm.get('hat').value, 'percentage') + '%'}}</td>
+                </tr>
+                <tr>
+                    <td>Top</td>
+                    <td class="vertical-align">
+                        <img class="icon" [src]="'IED Icons/' + getValue(tops, iedForm.get('top').value, 'url') + '.png'">
+                        <select formControlName="top">
+                            @for (item of tops; track item; let i = $index) {
+                                <option>{{item.name}}</option>
+                            }
+                        </select>
+                    </td>
+                    <td>{{getValue(tops, iedForm.get('top').value, 'percentage') + '%'}}</td>
+                </tr>
+                <tr>
+                    <td>Bottom</td>
+                    <td class="vertical-align">
+                        <img class="icon" [src]="'IED Icons/' + getValue(bottoms, iedForm.get('bottom').value, 'url') + '.png'">
+                        <select formControlName="bottom">
+                            @for (item of bottoms; track item; let i = $index) {
+                                <option>{{item.name}}</option>
+                            }
+                        </select>
+                    </td>
+                    <td>{{getValue(bottoms, iedForm.get('bottom').value, 'percentage') + '%'}}</td>
+                </tr>
+                <tr>
+                    <td>Glove</td>
+                    <td class="vertical-align">
+                        <img class="icon" [src]="'IED Icons/' + getValue(gloves, iedForm.get('glove').value, 'url') + '.png'">
+                        <select formControlName="glove">
+                            @for (item of gloves; track item; let i = $index) {
+                                <option>{{item.name}}</option>
+                            }
+                        </select>
+                    </td>
+                    <td>{{getValue(gloves, iedForm.get('glove').value, 'percentage') + '%'}}</td>
+                </tr>
+                <tr>
+                    <td>Shoe</td>
+                    <td class="vertical-align">
+                        <img class="icon" [src]="'IED Icons/' + getValue(shoes, iedForm.get('shoe').value, 'url') + '.png'">
+                        <select formControlName="shoe">
+                            @for (item of shoes; track item; let i = $index) {
+                                <option>{{item.name}}</option>
+                            }
+                        </select>
+                    </td>
+                    <td>{{getValue(shoes, iedForm.get('shoe').value, 'percentage') + '%'}}</td>
+                </tr>
+                <tr>
+                    <td>Shoulder</td>
+                    <td class="vertical-align">
+                        <img class="icon" [src]="'IED Icons/' + getValue(shoulders, iedForm.get('shoulder').value, 'url') + '.png'">
+                        <select formControlName="shoulder">
+                            @for (item of shoulders; track item; let i = $index) {
+                                <option>{{item.name}}</option>
+                            }
+                        </select>
+                    </td>
+                    <td>{{getValue(shoulders, iedForm.get('shoulder').value, 'percentage') + '%'}}</td>
                 </tr>
             </table>
             <div class="header">Miscellaneous</div>
