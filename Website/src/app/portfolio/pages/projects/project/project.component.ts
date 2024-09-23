@@ -12,13 +12,14 @@ export class ProjectComponent {
   @Input() name: string;
   @Input() description: string;
   @Input() link: string;
+  @Input() imageUrl: string;
 
   constructor(private router: Router) {
   }
 
   changePage(): void {
     if (this.link) {
-      this.router.navigate(['maplestory-helper']);
+      this.router.navigate([this.link]);
     }
   }
 }
