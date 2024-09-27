@@ -100,6 +100,7 @@ export class BossCrystalsComponent implements OnInit {
           for (let row of this.bosses) {
             let result: any = character_bosses.find(boss => boss.name === row.name);
             let index: number = 0;
+            index = 0;
             if (!result) {
               character_bosses.splice(index, 0, {
                 name: row.name,
@@ -108,8 +109,8 @@ export class BossCrystalsComponent implements OnInit {
                 daily: row.daily,
                 weekly_clears: 1,
               });
-              index++;
             }
+            index++;
           }
           // looping through and updating all rows
           for (let row of character_bosses) {
