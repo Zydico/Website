@@ -1,0 +1,38 @@
+.top-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#daily-panel {
+    width: 400px;
+    position: relative;
+}
+
+.button {
+    font-size: 0.8rem;
+    height: 25px;
+    color: var(--white);
+}
+
+.add {
+    background-color: var(--maplestory-add-color);
+    width: fit-content;
+    height: 30px;
+    font-size: 1rem;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.add:hover {
+    background-color: var(--maplestory-add-hover-color);
+}
+
+table {
+    margin-top: 10px;
+    margin-bottom: 0px;
+}

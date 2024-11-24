@@ -19,6 +19,8 @@ export class HeaderComponent {
         this.name = 'Boss Crystals';
       } else if (event.urlAfterRedirects === '/maplestory-helper/ied-calculator') {
         this.name = 'IED Calculator';
+      } else if (event.urlAfterRedirects === '/maplestory-helper/tracker') {
+        this.name = 'Daily/Weekly Tracker';
       } else if (event.urlAfterRedirects === '/maplestory-helper/useful-resources') {
         this.name = 'Useful Resources';
       } else if (event.urlAfterRedirects === '/maplestory-helper/about') {

@@ -20,49 +20,49 @@ export class BossCrystalsComponent implements OnInit {
     {name: 'Magnus (Normal)', meso: 12960000, url: 'Magnus', daily: true, darken: true},
     {name: 'Papulatus (Normal)', meso: 13322500, url: 'Papulatus', daily: true, darken: true},
     {name: 'Mori Ranmaru (Hard)', meso: 13322500, url: 'Ranmaru', daily: true, darken: true},
-    {name: 'Hilla (Hard)', meso: 56250000, preset: ['cra', 'akechi', 'nlomien', 'ctene'], url: 'Hilla'},
-    {name: 'Pink Bean (Chaos)', meso: 64000000, preset: ['cra', 'akechi', 'nlomien', 'ctene'], darken: true, url: 'Pink Bean'},
+    {name: 'Hilla (Hard)', meso: 56250000, preset: ['cra', 'akechi'], url: 'Hilla'},
+    {name: 'Pink Bean (Chaos)', meso: 64000000, preset: ['cra', 'akechi'], darken: true, url: 'Pink Bean'},
     {name: 'Cygnus (Easy)', meso: 45562500, shared: ['Cygnus (Normal)'], url: 'Cygnus'},
-    {name: 'Cygnus (Normal)', meso: 72250000, shared: ['Cygnus (Easy)'], preset: ['cra', 'akechi', 'nlomien', 'ctene'], url: 'Cygnus'},
-    {name: 'Crimson Queen (Chaos)', meso: 81000000, preset: ['cra', 'akechi', 'nlomien', 'ctene'], darken: true, url: 'Crimson Queen'},
-    {name: 'Von Bon (Chaos)', meso: 81000000, preset: ['cra', 'akechi', 'nlomien', 'ctene'], url: 'Von Bon'},
-    {name: 'Pierre (Chaos)', meso: 81000000, preset: ['cra', 'akechi', 'nlomien', 'ctene'], darken: true, url: 'Pierre'},
-    {name: 'Zakum (Chaos)', meso: 81000000, preset: ['cra', 'akechi', 'nlomien', 'ctene'], url: 'Zakum'},
-    {name: 'Princess No', meso: 81000000, preset: ['cra', 'akechi', 'nlomien', 'ctene'], darken: true, url: 'Princess No'},
+    {name: 'Cygnus (Normal)', meso: 72250000, shared: ['Cygnus (Easy)'], preset: ['cra', 'akechi', 'nlomien'], url: 'Cygnus'},
+    {name: 'Crimson Queen (Chaos)', meso: 81000000, preset: ['cra', 'akechi', 'nlomien'], darken: true, url: 'Crimson Queen'},
+    {name: 'Von Bon (Chaos)', meso: 81000000, preset: ['cra', 'akechi', 'nlomien'], url: 'Von Bon'},
+    {name: 'Pierre (Chaos)', meso: 81000000, preset: ['cra', 'akechi', 'nlomien'], darken: true, url: 'Pierre'},
+    {name: 'Zakum (Chaos)', meso: 81000000, preset: ['cra', 'akechi', 'nlomien'], url: 'Zakum'},
+    {name: 'Princess No', meso: 81000000, preset: ['cra', 'akechi', 'nlomien'], darken: true, url: 'Princess No'},
     {name: 'Magnus (Hard)', meso: 95062500, preset: ['cra', 'akechi', 'nlomien', 'ctene'], url: 'Magnus'},
     {name: 'Vellum (Chaos)', meso: 105062500, preset: ['cra', 'akechi', 'nlomien', 'ctene'], darken: true, url: 'Vellum'},
     {name: 'Papulatus (Chaos)', meso: 132250000, preset: ['akechi', 'nlomien', 'ctene'], url: 'Papulatus'},
     {name: 'Akechi Mitsuhide', meso: 144000000, preset: ['akechi', 'nlomien', 'ctene'], darken: true, url: 'Akechi'},
     {name: 'Lotus (Normal)', meso: 162562500, shared: ['Lotus (Hard)', 'Lotus (Extreme)'], preset: ['nlomien'], url: 'Lotus'},
     {name: 'Lotus (Hard)', meso: 370562500, shared: ['Lotus (Normal)', 'Lotus (Extreme)'], preset: ['ctene'], url: 'Lotus'},
-    {name: 'Lotus (Extreme)', meso: 1075000000, shared: ['Lotus (Normal)', 'Lotus (Hard)'], url: 'Lotus'},
+    {name: 'Lotus (Extreme)', meso: 1105000000, shared: ['Lotus (Normal)', 'Lotus (Hard)'], url: 'Lotus'},
     {name: 'Damien (Normal)', meso: 169000000, shared: ['Damien (Hard)'], preset: ['nlomien'], darken: true, url: 'Damien'},
     {name: 'Damien (Hard)', meso: 351562500, shared: ['Damien (Normal)'], preset: ['ctene'], darken: true, url: 'Damien'},
     {name: 'Guardian Angel Slime (Normal)', meso: 171610000, shared: ['Guardian Angel Slime (Chaos)'], url: 'Slime'},
-    {name: 'Guardian Angel Slime (Chaos)', meso: 451562500, shared: ['Guardian Angel Slime (Normal)'], preset: ['ctene'], url: 'Slime'},
+    {name: 'Guardian Angel Slime (Chaos)', meso: 478656250, shared: ['Guardian Angel Slime (Normal)'], preset: ['ctene'], url: 'Slime'},
     {name: 'Lucid (Easy)', meso: 175562500, shared: ['Lucid (Normal)', 'Lucid (Hard)'], darken: true, url: 'Lucid'},
     {name: 'Lucid (Normal)', meso: 203062500, shared: ['Lucid (Easy)', 'Lucid (Hard)'], darken: true, url: 'Lucid'},
     {name: 'Lucid (Hard)', meso: 400000000, shared: ['Lucid (Easy)', 'Lucid (Normal)'], preset: ['ctene'], darken: true, url: 'Lucid'},
     {name: 'Will (Easy)', meso: 191275000, shared: ['Will (Normal)', 'Will (Hard)'], url: 'Will'},
     {name: 'Will (Normal)', meso: 232562500, shared: ['Will (Easy)', 'Will (Hard)'], url: 'Will'},
-    {name: 'Will (Hard)', meso: 441000000, shared: ['Will (Easy)', 'Will (Normal)'], preset: ['ctene'], url: 'Will'},
+    {name: 'Will (Hard)', meso: 485100000, shared: ['Will (Easy)', 'Will (Normal)'], preset: ['ctene'], url: 'Will'},
     {name: 'Gloom (Normal)', meso: 248062500, shared: ['Gloom (Chaos)'], darken: true, url: 'Gloom'},
     {name: 'Gloom (Chaos)', meso: 462250000, shared: ['Gloom (Normal)'], preset: ['ctene'], darken: true, url: 'Gloom'},
     {name: 'Darknell (Normal)', meso: 264062500, shared: ['Darknell (Hard)'], url: 'Darknell'},
-    {name: 'Darknell (Hard)', meso: 484000000, shared: ['Darknell (Normal)'], preset: ['ctene'], url: 'Darknell'},
-    {name: 'Verus Hilla (Normal)', meso: 447600000, shared: ['Verus Hilla (Hard)'], darken: true, url: 'VHilla'},
-    {name: 'Verus Hilla (Hard)', meso: 552250000, shared: ['Verus Hilla (Normal)'], preset: ['ctene'], darken: true, url: 'VHilla'},
-    {name: 'Chosen Seren (Normal)', meso: 668437500, shared: ['Chosen Seren (Hard)', 'Chosen Seren (Extreme)'], url: 'Seren'},
-    {name: 'Chosen Seren (Hard)', meso: 756250000, shared: ['Chosen Seren (Normal)', 'Chosen Seren (Extreme)'], url: 'Seren'},
-    {name: 'Chosen Seren (Extreme)', meso: 3025000000, shared: ['Chosen Seren (Normal)', 'Chosen Seren (Hard)'], url: 'Seren'},
-    {name: 'Kalos the Guardian (Easy)', meso: 750000000, shared: ['Kalos the Guardian (Normal)', 'Kalos the Guardian (Chaos)', 'Kalos the Guardian (Extreme)'], darken: true, url: 'Kalos'},
-    {name: 'Kalos the Guardian (Normal)', meso: 1000000000, shared: ['Kalos the Guardian (Easy)', 'Kalos the Guardian (Chaos)', 'Kalos the Guardian (Extreme)'], darken: true, url: 'Kalos'},
-    {name: 'Kalos the Guardian (Chaos)', meso: 2000000000, shared: ['Kalos the Guardian (Easy)', 'Kalos the Guardian (Normal)', 'Kalos the Guardian (Extreme)'], darken: true, url: 'Kalos'},
-    {name: 'Kalos the Guardian (Extreme)', meso: 4000000000, shared: ['Kalos the Guardian (Easy)', 'Kalos the Guardian (Normal)', 'Kalos the Guardian (Chaos)'], darken: true, url: 'Kalos'},
-    {name: 'Kaling (Easy)', meso: 825000000, shared: ['Kaling (Normal)', 'Kaling (Hard)', 'Kaling (Extreme)'], url: 'Kaling'},
-    {name: 'Kaling (Normal)', meso: 1150000000, shared: ['Kaling (Easy)', 'Kaling (Hard)', 'Kaling (Extreme)'], url: 'Kaling'},
-    {name: 'Kaling (Hard)', meso: 2000000000, shared: ['Kaling (Easy)', 'Kaling (Normal)', 'Kaling (Extreme)'], url: 'Kaling'},
-    {name: 'Kaling (Extreme)', meso: 4600000000, shared: ['Kaling (Easy)', 'Kaling (Normal)', 'Kaling (Hard)'], url: 'Kaling'}
+    {name: 'Darknell (Hard)', meso: 508205000, shared: ['Darknell (Normal)'], preset: ['ctene'], url: 'Darknell'},
+    {name: 'Verus Hilla (Normal)', meso: 465504000, shared: ['Verus Hilla (Hard)'], darken: true, url: 'VHilla'},
+    {name: 'Verus Hilla (Hard)', meso: 580690000, shared: ['Verus Hilla (Normal)'], preset: ['ctene'], darken: true, url: 'VHilla'},
+    {name: 'Chosen Seren (Normal)', meso: 690005000, shared: ['Chosen Seren (Hard)', 'Chosen Seren (Extreme)'], url: 'Seren'},
+    {name: 'Chosen Seren (Hard)', meso: 907500000, shared: ['Chosen Seren (Normal)', 'Chosen Seren (Extreme)'], url: 'Seren'},
+    {name: 'Chosen Seren (Extreme)', meso: 3418250000, shared: ['Chosen Seren (Normal)', 'Chosen Seren (Hard)'], url: 'Seren'},
+    {name: 'Kalos the Guardian (Easy)', meso: 772605000, shared: ['Kalos the Guardian (Normal)', 'Kalos the Guardian (Chaos)', 'Kalos the Guardian (Extreme)'], darken: true, url: 'Kalos'},
+    {name: 'Kalos the Guardian (Normal)', meso: 1031675000, shared: ['Kalos the Guardian (Easy)', 'Kalos the Guardian (Chaos)', 'Kalos the Guardian (Extreme)'], darken: true, url: 'Kalos'},
+    {name: 'Kalos the Guardian (Chaos)', meso: 2062650000, shared: ['Kalos the Guardian (Easy)', 'Kalos the Guardian (Normal)', 'Kalos the Guardian (Extreme)'], darken: true, url: 'Kalos'},
+    {name: 'Kalos the Guardian (Extreme)', meso: 4123745000, shared: ['Kalos the Guardian (Easy)', 'Kalos the Guardian (Normal)', 'Kalos the Guardian (Chaos)'], darken: true, url: 'Kalos'},
+    {name: 'Kaling (Easy)', meso: 852510000, shared: ['Kaling (Normal)', 'Kaling (Hard)', 'Kaling (Extreme)'], url: 'Kaling'},
+    {name: 'Kaling (Normal)', meso: 1185540000, shared: ['Kaling (Easy)', 'Kaling (Hard)', 'Kaling (Extreme)'], url: 'Kaling'},
+    {name: 'Kaling (Hard)', meso: 2369430000, shared: ['Kaling (Easy)', 'Kaling (Normal)', 'Kaling (Extreme)'], url: 'Kaling'},
+    {name: 'Kaling (Extreme)', meso: 4742305000, shared: ['Kaling (Easy)', 'Kaling (Normal)', 'Kaling (Hard)'], url: 'Kaling'}
   ]
 
   bossForm: FormGroup = this.formBuilder.group({
@@ -284,47 +284,94 @@ export class BossCrystalsComponent implements OnInit {
     }
   }
 
+  replaceMin(list: number[], newValue: number) {
+    let minimum = 0;
+    let minimumIndex = 0;
+    for (let i = 0; i < list.length; i++) {
+      if (i == 0) {
+        minimum = list[i];
+        minimumIndex = 0;
+      } else {
+        if (list[i] < minimum) {
+          minimum = list[i];
+          minimumIndex = i;
+        }
+      }
+    }
+    if (newValue > minimum) {
+      list[minimumIndex] = newValue;
+    }
+    return list;
+  }
+
   calculateIncome(index: number) {
     let column = this.columns.at(index);
     let character_bosses = column.get('character_bosses') as FormArray;
     let total = 0;
-    let crystals = 0;
+    let weekly_bosses = [];
+    let daily_crystals = 0;
     for (let row of character_bosses.controls) {
       if (row.value.checked) {
         let result = this.bosses.find(boss => boss.name === row.value.name);
         let meso = result.meso;
-        if (row.value.weekly_clears) {
+        if (row.value.daily) {
           meso = meso * row.value.weekly_clears;
-          crystals = crystals + row.value.weekly_clears;
+          daily_crystals = daily_crystals + row.value.weekly_clears;
+          total += (this.bossForm.get('server').value == 'reboot' ? meso : meso/5);
         } else {
-          crystals++;
+          weekly_bosses.push(meso / row.value.party_size);
         }
-        total += (this.bossForm.get('server').value == 'reboot' ? meso : meso/5) / row.value.party_size;
       }
     }
-    return this.numberWithCommas.transform(Math.floor(total)) + ' Mesos [ Crystals: ' + crystals + ' ]';
+    let filtered_list = [];
+    for (let i = 0; i < weekly_bosses.length; i++) {
+      if (filtered_list.length < 12) {
+        filtered_list.push(weekly_bosses[i]);
+      } else {
+        filtered_list = this.replaceMin(filtered_list, weekly_bosses[i]);
+      }
+    }
+    for (let i = 0; i < filtered_list.length; i++) {
+      total += (this.bossForm.get('server').value == 'reboot' ? filtered_list[i] : filtered_list[i]/5);
+    }
+    return this.numberWithCommas.transform(Math.floor(total)) + ' Mesos [ Crystals: ' + (daily_crystals + filtered_list.length) + ' ]';
   }
 
   calculateTotalIncome(): void {
     let total = 0;
     let crystals = 0;
     for (let i = 0; i < this.columns.length; i++) {
+      
+
+
       let column = this.columns.at(i);
       let character_bosses = column.get('character_bosses') as FormArray;
+      let weekly_bosses = [];
+      let daily_crystals = 0;
       for (let row of character_bosses.controls) {
         if (row.value.checked) {
           let result = this.bosses.find(boss => boss.name === row.value.name);
           let meso = result.meso;
           if (row.value.daily) {
             meso = meso * row.value.weekly_clears;
-          }
-          if (row.value.weekly_clears) {
             crystals = crystals + row.value.weekly_clears;
+            total += (this.bossForm.get('server').value == 'reboot' ? meso : meso/5);
           } else {
-            crystals++;
+            weekly_bosses.push(meso / row.value.party_size);
           }
-          total += (this.bossForm.get('server').value == 'reboot' ? meso : meso/5) / row.value.party_size;
         }
+      }
+      let filtered_list = [];
+      for (let i = 0; i < weekly_bosses.length; i++) {
+        if (filtered_list.length < 12) {
+          filtered_list.push(weekly_bosses[i]);
+        } else {
+          filtered_list = this.replaceMin(filtered_list, weekly_bosses[i]);
+        }
+      }
+      for (let i = 0; i < filtered_list.length; i++) {
+        total += (this.bossForm.get('server').value == 'reboot' ? filtered_list[i] : filtered_list[i]/5);
+        crystals++;
       }
     }
     if (this.extraForm.get('ursus').value && this.extraForm.get('highest_level').value) {

@@ -2,9 +2,10 @@
     <div id="menu" class="panel">
         <div id="clear" class="add button" (click)="clearData()">Clear Storage and Refresh</div>
         <div id="instructions">
-            If the page looks messed up or isn't behaving normally, it's probably because a new boss got added. Please press the button above to fix this.<br><br>
+            If the page looks messed up or isn't behaving normally, it's probably because a new boss got added. Press the button above to fix this.<br><br>
             The first five rows are daily bosses and the numbers next to the checkboxes represents the number of times you clear the boss in a week.<br>
-            All other rows are weekly bosses and the numbers next to the checkboxes represents the number of people in the party.
+            All other rows are weekly bosses and the numbers next to the checkboxes represents the number of people in the party.<br>
+            Select all the weekly bosses you can clear, and it will calculate the most mesos out of the 12 weekly boss crystals you can sell per character.
         </div>
         <div class="add button" (click)="addColumn()">Add empty character</div>
         <div class="add button" (click)="addColumn('cra')">Add CRA mule</div>
