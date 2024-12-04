@@ -325,7 +325,7 @@ export class BossCrystalsComponent implements OnInit {
     }
     let filtered_list = [];
     for (let i = 0; i < weekly_bosses.length; i++) {
-      if (filtered_list.length < 12) {
+      if (filtered_list.length < 14) {
         filtered_list.push(weekly_bosses[i]);
       } else {
         filtered_list = this.replaceMin(filtered_list, weekly_bosses[i]);
@@ -341,13 +341,9 @@ export class BossCrystalsComponent implements OnInit {
     let total = 0;
     let crystals = 0;
     for (let i = 0; i < this.columns.length; i++) {
-      
-
-
       let column = this.columns.at(i);
       let character_bosses = column.get('character_bosses') as FormArray;
       let weekly_bosses = [];
-      let daily_crystals = 0;
       for (let row of character_bosses.controls) {
         if (row.value.checked) {
           let result = this.bosses.find(boss => boss.name === row.value.name);
@@ -363,7 +359,7 @@ export class BossCrystalsComponent implements OnInit {
       }
       let filtered_list = [];
       for (let i = 0; i < weekly_bosses.length; i++) {
-        if (filtered_list.length < 12) {
+        if (filtered_list.length < 14) {
           filtered_list.push(weekly_bosses[i]);
         } else {
           filtered_list = this.replaceMin(filtered_list, weekly_bosses[i]);
