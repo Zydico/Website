@@ -62,7 +62,9 @@ export class BossCrystalsComponent implements OnInit {
     {name: 'Kaling (Easy)', meso: 1031250000, shared: ['Kaling (Normal)', 'Kaling (Hard)', 'Kaling (Extreme)'], url: 'Kaling'},
     {name: 'Kaling (Normal)', meso: 1506500000, shared: ['Kaling (Easy)', 'Kaling (Hard)', 'Kaling (Extreme)'], url: 'Kaling'},
     {name: 'Kaling (Hard)', meso: 2990000000, shared: ['Kaling (Easy)', 'Kaling (Normal)', 'Kaling (Extreme)'], url: 'Kaling'},
-    {name: 'Kaling (Extreme)', meso: 6026000000, shared: ['Kaling (Easy)', 'Kaling (Normal)', 'Kaling (Hard)'], url: 'Kaling'}
+    {name: 'Kaling (Extreme)', meso: 6026000000, shared: ['Kaling (Easy)', 'Kaling (Normal)', 'Kaling (Hard)'], url: 'Kaling'},
+    {name: 'Limbo (Normal)', meso: 2100000000, shared: ['Limbo (Hard)'], url: 'Limbo'},
+    {name: 'Limbo (Hard)', meso: 3745000000, shared: ['Limbo (Normal)'], url: 'Limbo'},
   ]
 
   bossForm: FormGroup = this.formBuilder.group({
@@ -97,35 +99,28 @@ export class BossCrystalsComponent implements OnInit {
           let character_bosses = character.character_bosses;
           let copy_character_bosses: FormArray = column.get('character_bosses') as FormArray;
           // adding new rows that they haven't seen before (new updates)
-          for (let row of this.bosses) {
-            let result: any = character_bosses.find(boss => boss.name === row.name);
-            let index: number = 0;
-            index = 0;
-            if (!result) {
-              character_bosses.splice(index, 0, {
-                name: row.name,
-                checked: false,
-                party_size: 1,
-                daily: row.daily,
-                weekly_clears: 1,
-              });
+          for (let boss of this.bosses) {
+            let row = this.formBuilder.group({
+              name: this.formBuilder.control<string>(boss.name),
+              checked: this.formBuilder.control<boolean>(boss.preset && boss.preset.includes('')),
+              party_size: this.formBuilder.control<number>(1),
+              daily: this.formBuilder.control<boolean>(boss.daily),
+              weekly_clears: this.formBuilder.control<number>(1),
+            });
+
+            let result: any = character_bosses.find(foundBoss => foundBoss.name === boss.name);
+            if (result) {
+              row.get('name').setValue(result.name);
+              row.get('checked').setValue(result.checked);
+              row.get('party_size').setValue(result.party_size);
+              row.get('daily').setValue(result.daily);
+              row.get('weekly_clears').setValue(result.weekly_clears);
             }
-            index++;
-          }
-          // looping through and updating all rows
-          for (let row of character_bosses) {
-            let copy_row = this.formBuilder.group({
-              name: this.formBuilder.control<string>(row.name),
-              checked: this.formBuilder.control<boolean>(row.checked),
-              party_size: this.formBuilder.control<number>(row.party_size),
-              daily: this.formBuilder.control<boolean>(row.daily ? row.daily : false),
-              weekly_clears: this.formBuilder.control<number>(row.weekly_clears ? row.weekly_clears : 1)
-            })
-            let result: any = this.bosses.find(boss => boss.name === row.name);
-            if (result.shared) {
-              this.addCheckboxCheck(copy_character_bosses, copy_row, result.shared);
+            
+            if (boss.shared) {
+              this.addCheckboxCheck(copy_character_bosses, row, boss.shared);
             }
-            copy_character_bosses.push(copy_row);
+            copy_character_bosses.push(row);
           }
 
           for (let row of copy_character_bosses.controls) {
@@ -135,7 +130,20 @@ export class BossCrystalsComponent implements OnInit {
               this.triggerCheckboxCheck(copy_character_bosses, result.shared, row.value.checked);
             }
           }
-          this.columns.push(column);       
+          this.columns.push(column);      
+
+          // Final failsafe check
+          let first_column = this.columns.at(0);
+          let first_character_bosses: FormArray<FormGroup> = first_column.get('character_bosses') as FormArray;
+          if (first_character_bosses.controls) {
+            let match1 = (first_character_bosses.controls[0].value.name == this.bosses[0].name);
+            let match2 = (first_character_bosses.controls[15].value.name == this.bosses[15].name);
+            let match3 = (first_character_bosses.controls[first_character_bosses.controls.length-1].value.name == this.bosses[this.bosses.length-1].name);
+            let pass = match1 && match2 && match3;
+            if (!pass) {
+              this.clearData();
+            }
+          }
         }, 0);
       }
 
