@@ -63,8 +63,8 @@ export class BossCrystalsComponent implements OnInit {
     {name: 'Kaling (Normal)', meso: 1506500000, shared: ['Kaling (Easy)', 'Kaling (Hard)', 'Kaling (Extreme)'], url: 'Kaling'},
     {name: 'Kaling (Hard)', meso: 2990000000, shared: ['Kaling (Easy)', 'Kaling (Normal)', 'Kaling (Extreme)'], url: 'Kaling'},
     {name: 'Kaling (Extreme)', meso: 6026000000, shared: ['Kaling (Easy)', 'Kaling (Normal)', 'Kaling (Hard)'], url: 'Kaling'},
-    {name: 'Limbo (Normal)', meso: 2100000000, shared: ['Limbo (Hard)'], url: 'Limbo'},
-    {name: 'Limbo (Hard)', meso: 3745000000, shared: ['Limbo (Normal)'], url: 'Limbo'},
+    {name: 'Limbo (Normal)', meso: 2100000000, shared: ['Limbo (Hard)'], url: 'Limbo', darken: true},
+    {name: 'Limbo (Hard)', meso: 3745000000, shared: ['Limbo (Normal)'], url: 'Limbo', darken: true},
   ]
 
   bossForm: FormGroup = this.formBuilder.group({
