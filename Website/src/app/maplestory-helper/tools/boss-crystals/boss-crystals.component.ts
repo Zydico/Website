@@ -202,6 +202,71 @@ export class BossCrystalsComponent implements OnInit {
   get columns(): FormArray<FormGroup> {
     return (this.bossForm.get('columns') as FormArray);
   }
+  
+  // 0 = left, 1 = right
+  move(index: number, direction: number) {
+    if (direction == 0 && index > 0) {
+      let reference_column = this.columns.at(index-1);
+      let copy_column: FormGroup = this.formBuilder.group({
+        character: this.formBuilder.control<string>(reference_column.get('character').value),
+        character_bosses: this.formBuilder.array<FormGroup>([])
+      })
+      let reference_character_bosses: FormArray<FormGroup> = reference_column.get('character_bosses') as FormArray;
+      let copy_character_bosses: FormArray<FormGroup> = copy_column.get('character_bosses') as FormArray;
+      for (let row of reference_character_bosses.controls) {
+        let copy_row: FormGroup = this.formBuilder.group({
+          name: this.formBuilder.control<string>(row.value.name),
+          checked: this.formBuilder.control<boolean>(row.value.checked),
+          party_size: this.formBuilder.control<number>(row.value.party_size),
+          daily: this.formBuilder.control<boolean>(row.value.daily),
+          weekly_clears: this.formBuilder.control<number>(row.value.weekly_clears)
+        })
+        let result: any = this.bosses.find(boss => boss.name === row.value.name);
+        if (result.shared) {
+          this.addCheckboxCheck(copy_character_bosses, copy_row, result.shared);
+        }
+        copy_character_bosses.push(copy_row);
+      }
+      for (let row of copy_character_bosses.controls) {
+        let result: any = this.bosses.find(boss => boss.name === row.value.name);
+        if (result.shared && row.value.checked) {
+          this.triggerCheckboxCheck(copy_character_bosses, result.shared, row.value.checked);
+        }
+      }
+      this.columns.insert(index+1, copy_column);
+      this.delete(index-1);
+    } else if (direction == 1 && index < this.columns.length-1) {
+      let reference_column = this.columns.at(index);
+      let copy_column: FormGroup = this.formBuilder.group({
+        character: this.formBuilder.control<string>(reference_column.get('character').value),
+        character_bosses: this.formBuilder.array<FormGroup>([])
+      })
+      let reference_character_bosses: FormArray<FormGroup> = reference_column.get('character_bosses') as FormArray;
+      let copy_character_bosses: FormArray<FormGroup> = copy_column.get('character_bosses') as FormArray;
+      for (let row of reference_character_bosses.controls) {
+        let copy_row: FormGroup = this.formBuilder.group({
+          name: this.formBuilder.control<string>(row.value.name),
+          checked: this.formBuilder.control<boolean>(row.value.checked),
+          party_size: this.formBuilder.control<number>(row.value.party_size),
+          daily: this.formBuilder.control<boolean>(row.value.daily),
+          weekly_clears: this.formBuilder.control<number>(row.value.weekly_clears)
+        })
+        let result: any = this.bosses.find(boss => boss.name === row.value.name);
+        if (result.shared) {
+          this.addCheckboxCheck(copy_character_bosses, copy_row, result.shared);
+        }
+        copy_character_bosses.push(copy_row);
+      }
+      for (let row of copy_character_bosses.controls) {
+        let result: any = this.bosses.find(boss => boss.name === row.value.name);
+        if (result.shared && row.value.checked) {
+          this.triggerCheckboxCheck(copy_character_bosses, result.shared, row.value.checked);
+        }
+      }
+      this.delete(index);
+      this.columns.insert(index+1, copy_column);
+    }
+  }
 
   clone(index: number) {
     let reference_column = this.columns.at(index);
@@ -231,7 +296,7 @@ export class BossCrystalsComponent implements OnInit {
         this.triggerCheckboxCheck(copy_character_bosses, result.shared, row.value.checked);
       }
     }
-    this.columns.push(copy_column);
+    this.columns.insert(index, copy_column);
   }
   
   // delete table column and specific index

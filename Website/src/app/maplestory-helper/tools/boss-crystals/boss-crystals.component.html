@@ -47,8 +47,10 @@
                         <div class="cell character-header vertical-align">
                             <input type="text" class="character-input" placeholder="Name" formControlName="character" maxlength="14">
                             <div class="hover-menu">
+                                <div class="move button" (click)="move(i, 0)">&larr;</div>
                                 <div class="clone button" (click)="clone(i)">Clone</div>
                                 <div class="delete button" (click)="delete(i)">Delete</div>
+                                <div class="move button" (click)="move(i, 1)">&rarr;</div>
                             </div>
                         </div>
                         @for (boss of character.get('character_bosses')['controls']; track boss; let j = $index) {

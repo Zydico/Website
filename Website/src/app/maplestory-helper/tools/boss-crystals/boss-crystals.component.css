@@ -73,10 +73,11 @@ form {
 
 .hover-menu {
     display: none;
-    width: 100%;
+    width: calc(100% + '0px');
+    gap: 4px;
     height: 100%;
     position: absolute;
-    left: 0;
+    left: -31px;
     top: -30px;
     box-sizing: border-box;
 }
@@ -84,6 +85,15 @@ form {
 .character-header:hover .hover-menu {
     display: flex;
     justify-content: space-between;
+}
+
+.move {
+    background-color: var(--maplestory-move-color);
+    width: 30px !important;
+}
+
+.move:hover {
+    background-color: var(--maplestory-move-hover-color);
 }
 
 .clone {
