@@ -17,8 +17,6 @@ export class HeaderComponent {
     .subscribe((event: NavigationEnd) => {
       if (event.urlAfterRedirects === '/maplestory-helper/boss-crystals') {
         this.name = 'Boss Crystals';
-      } else if (event.urlAfterRedirects === '/maplestory-helper/tracker') {
-        this.name = 'Dailies/Weeklies';
       } else if (event.urlAfterRedirects === '/maplestory-helper/useful-resources') {
         this.name = 'Useful Resources';
       } else if (event.urlAfterRedirects === '/maplestory-helper/about') {

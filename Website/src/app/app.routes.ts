@@ -4,7 +4,6 @@ import { MaplestoryHelperComponent } from './maplestory-helper/maplestory-helper
 import { BossCrystalsComponent } from './maplestory-helper/tools/boss-crystals/boss-crystals.component';
 import { UsefulResourcesComponent } from './maplestory-helper/tools/useful-resources/useful-resources.component';
 import { AboutComponent } from './maplestory-helper/tools/about/about.component';
-import { TrackerComponent } from './maplestory-helper/tools/tracker/tracker.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/portfolio', pathMatch: 'full' },
@@ -18,10 +17,6 @@ export const routes: Routes = [
             {
                 path: 'boss-crystals',
                 component: BossCrystalsComponent
-            },
-            {
-                path: 'tracker',
-                component: TrackerComponent
             },
             {
                 path: 'useful-resources',

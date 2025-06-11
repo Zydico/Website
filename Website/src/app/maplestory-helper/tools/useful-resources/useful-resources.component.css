@@ -9,3 +9,15 @@ table {
 .weekly{
     background-color: rgb(104, 197, 104) !important;
 }
+
+.sticky {
+    position: sticky;
+    top: 110px;
+}
+
+@media (width <= 800px) {
+    .sticky {
+        position: sticky;
+        top: 105px;
+    }
+}
