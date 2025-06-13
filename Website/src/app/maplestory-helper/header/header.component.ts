@@ -19,6 +19,8 @@ export class HeaderComponent {
         this.name = 'Boss Crystals';
       } else if (event.urlAfterRedirects === '/maplestory-helper/useful-resources') {
         this.name = 'Useful Resources';
+      } else if (event.urlAfterRedirects === '/maplestory-helper/dailies-weeklies') {
+        this.name = 'Dailies/Weeklies';
       } else if (event.urlAfterRedirects === '/maplestory-helper/about') {
         this.name = 'About';
       }
