@@ -98,6 +98,9 @@ export class TrackerComponent implements OnInit {
       dailies: this.formBuilder.array([]),
       weeklies: this.formBuilder.array([]),
     });
+    this.form.valueChanges.subscribe(() => {
+      this.updateStorage();
+    })
     localStorage.removeItem('daily-tasks-server-local');
     localStorage.removeItem('weekly-tasks-server-local');
   }
