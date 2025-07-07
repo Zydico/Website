@@ -35,9 +35,9 @@ export class TrackerComponent implements OnInit {
   
   ngOnInit() {
     this.getDates();
-    let daily_server: string = localStorage.getItem('daily-tasks-server');
+    let daily_server: string = localStorage.getItem('daily-tasks-server-local');
     if (daily_server) { // If local storage exists (second time user)
-      let weekly_server: string = localStorage.getItem('weekly-tasks-server');
+      let weekly_server: string = localStorage.getItem('weekly-tasks-server-local');
       let dailiesJSON = JSON.parse(daily_server);
       let weeklyJSON = JSON.parse(weekly_server);
       for (let task of dailiesJSON) {
@@ -64,7 +64,6 @@ export class TrackerComponent implements OnInit {
     })
     this.loop = window.setInterval(() => {
       this.getDates();
-      console.log(this.form);
       let current_time = new Date();
       for (let daily of this.dailies.controls) {
         if (new Date(daily.get('dailyReset').value) < current_time) {
@@ -90,8 +89,8 @@ export class TrackerComponent implements OnInit {
   }
 
   updateStorage(): void {
-    localStorage.setItem('daily-tasks-server', JSON.stringify(this.form.get('dailies').value));
-    localStorage.setItem('weekly-tasks-server', JSON.stringify(this.form.get('weeklies').value));
+    localStorage.setItem('daily-tasks-server-local', JSON.stringify(this.form.get('dailies').value));
+    localStorage.setItem('weekly-tasks-server-local', JSON.stringify(this.form.get('weeklies').value));
   }
 
   clearData(): void {
@@ -99,8 +98,8 @@ export class TrackerComponent implements OnInit {
       dailies: this.formBuilder.array([]),
       weeklies: this.formBuilder.array([]),
     });
-    localStorage.removeItem('daily-tasks-server');
-    localStorage.removeItem('weekly-tasks-server');
+    localStorage.removeItem('daily-tasks-server-local');
+    localStorage.removeItem('weekly-tasks-server-local');
   }
 
   addDaily(): FormGroup {
