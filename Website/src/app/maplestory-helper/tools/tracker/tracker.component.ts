@@ -55,12 +55,6 @@ export class TrackerComponent implements OnInit {
         weekly.get('resetType').setValue(task.resetType);
         weekly.get('weeklyReset').setValue(task.weeklyReset);
       }
-        
-      // done: false,
-      // character: '',
-      // task: '',
-      // resetType: 'Weekly Boss',
-      // weeklyReset: this.boss_reset
     } else {
       this.addDaily();
       this.addWeekly();
@@ -78,9 +72,19 @@ export class TrackerComponent implements OnInit {
         daily.get('dailyReset').setValue(Date.UTC(current_time.getUTCFullYear(), current_time.getUTCMonth(), current_time.getUTCDate()+1, 0, 0, 0));
       }
       for (let weekly of this.weeklies.controls) {
-        if (weekly.get('weeklyReset').value < current_time) {
-          weekly.get('done').setValue(false);
-          weekly.get('weeklyReset').setValue(weekly.get('weeklyReset').value+7);
+        console.log(weekly.get('weeklyReset').value);
+        console.log(current_time);
+        if (new Date(weekly.get('weeklyReset').value) < current_time || new Date(weekly.get('weeklyReset').value).toString() == 'Invalid Date') {
+          weekly.get('done').setValue(false);     
+          if (weekly.get('resetType').value == 'Sunday/Monday') {
+            weekly.get('weeklyReset').setValue(this.sunday_reset);
+          }
+          if (weekly.get('resetType').value == 'Weekly Boss') {
+            weekly.get('weeklyReset').setValue(this.boss_reset);
+          }
+          if (weekly.get('resetType').value == 'Event Reset') {
+            weekly.get('weeklyReset').setValue(this.event_reset);
+          }
         }
       }
     }, 1000);
