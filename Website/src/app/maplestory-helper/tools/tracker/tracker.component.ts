@@ -83,6 +83,7 @@ export class TrackerComponent implements OnInit {
           if (weekly.get('resetType').value == 'Event Reset') {
             weekly.get('weeklyReset').setValue(this.event_reset);
           }
+          this.updateStorage();
         }
       }
     }, 1000);
