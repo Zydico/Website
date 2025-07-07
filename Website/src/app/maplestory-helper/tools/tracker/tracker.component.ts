@@ -64,6 +64,7 @@ export class TrackerComponent implements OnInit {
     })
     this.loop = window.setInterval(() => {
       this.getDates();
+      console.log(this.form);
       let current_time = new Date();
       for (let daily of this.dailies.controls) {
         if (new Date(daily.get('dailyReset').value) < current_time) {
@@ -83,7 +84,6 @@ export class TrackerComponent implements OnInit {
           if (weekly.get('resetType').value == 'Event Reset') {
             weekly.get('weeklyReset').setValue(this.event_reset);
           }
-          this.updateStorage();
         }
       }
     }, 1000);
@@ -95,12 +95,12 @@ export class TrackerComponent implements OnInit {
   }
 
   clearData(): void {
-    localStorage.removeItem('daily-tasks-server');
-    localStorage.removeItem('weekly-tasks-server');
     this.form = this.formBuilder.group({
       dailies: this.formBuilder.array([]),
       weeklies: this.formBuilder.array([]),
     });
+    localStorage.removeItem('daily-tasks-server');
+    localStorage.removeItem('weekly-tasks-server');
   }
 
   addDaily(): FormGroup {
