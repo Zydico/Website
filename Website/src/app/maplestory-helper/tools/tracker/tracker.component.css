@@ -10,6 +10,7 @@
 #daily-panel {
     width: 650px;
     position: relative;
+    margin-right: 20px;
 }
 
 .button {
@@ -90,7 +91,12 @@ table {
 }
 
 #weekly-panel {
-    margin-left: 20px;
     width: 800px;
     position: relative;
+}
+
+@media (width <= 800px) {
+    #info-panel {
+        padding-top: 45px;
+    }
 }

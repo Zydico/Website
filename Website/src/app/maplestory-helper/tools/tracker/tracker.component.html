@@ -1,5 +1,5 @@
 <div class="page-container">
-    <div class="panel">
+    <div class="panel" id="info-panel">
         <div class="add button" (click)="clearData()">Reset Everything</div>
         Dailies reset on <b>{{daily_reset.toLocaleString('en-US', { weekday: 'long', hour: 'numeric', minute: 'numeric', hour12: true})}}</b> in <b>{{getDailyTimeDifference()}}</b><br>
         Event reset is on <b>{{event_reset.toLocaleString('en-US', { weekday: 'long', hour: 'numeric', minute: 'numeric', hour12: true})}}</b><br>

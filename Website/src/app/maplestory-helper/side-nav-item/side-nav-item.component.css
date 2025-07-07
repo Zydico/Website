@@ -27,9 +27,14 @@
         box-sizing: border-box;
         font-size: 0.75rem;
     }
-    
     .selected {
         background-color: var(--maplestory-nav-button-light);
         font-weight: bold;
+    }
+}
+
+@media (width <= 400px) {
+    .side-nav-item {
+        font-size: 0.5rem;
     }
 }

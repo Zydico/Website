@@ -72,8 +72,6 @@ export class TrackerComponent implements OnInit {
         daily.get('dailyReset').setValue(Date.UTC(current_time.getUTCFullYear(), current_time.getUTCMonth(), current_time.getUTCDate()+1, 0, 0, 0));
       }
       for (let weekly of this.weeklies.controls) {
-        console.log(weekly.get('weeklyReset').value);
-        console.log(current_time);
         if (new Date(weekly.get('weeklyReset').value) < current_time || new Date(weekly.get('weeklyReset').value).toString() == 'Invalid Date') {
           weekly.get('done').setValue(false);     
           if (weekly.get('resetType').value == 'Sunday/Monday') {
