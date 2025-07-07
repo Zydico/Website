@@ -101,7 +101,6 @@ export class TrackerComponent implements OnInit {
       dailies: this.formBuilder.array([]),
       weeklies: this.formBuilder.array([]),
     });
-    location.reload(); // refresh page
   }
 
   addDaily(): FormGroup {
