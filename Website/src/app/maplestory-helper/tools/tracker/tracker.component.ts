@@ -95,12 +95,12 @@ export class TrackerComponent implements OnInit {
   }
 
   clearData(): void {
+    localStorage.removeItem('daily-tasks-server');
+    localStorage.removeItem('weekly-tasks-server');
     this.form = this.formBuilder.group({
       dailies: this.formBuilder.array([]),
       weeklies: this.formBuilder.array([]),
     });
-    localStorage.removeItem('daily-tasks-server');
-    localStorage.removeItem('weekly-tasks-server');
     location.reload(); // refresh page
   }
 
