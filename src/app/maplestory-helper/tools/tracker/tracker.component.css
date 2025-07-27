@@ -1,0 +1,102 @@
+.top-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.panel {
+    position: relative;
+}
+
+#daily-panel {
+    width: 650px;
+    position: relative;
+    margin-right: 20px;
+}
+
+.button {
+    font-size: 0.8rem;
+    color: var(--white);
+    width: fit-content;
+    height: 22px;
+    font-size: 1rem;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+    padding-top: 2px;
+}
+
+.add {
+    background-color: var(--maplestory-add-color);
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.delete {
+    margin-left: 5px;
+    margin-top: 0px;
+    background-color: var(--maplestory-delete-color);
+}
+
+.delete:hover {
+    background-color: var(--maplestory-delete-hover-color);
+}
+
+.add:hover {
+    background-color: var(--maplestory-add-hover-color);
+}
+
+.move {
+    margin-left: -5px;
+    margin-top: 0px;
+    background-color: var(--maplestory-move-color);
+}
+
+.move:hover {
+    background-color: var(--maplestory-move-hover-color);
+}
+
+table {
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+
+.character-input {
+    width: 120px;
+}
+
+.daily-task {
+    width: 250px;
+}
+
+.daily-task-cell {
+    display: flex;
+    align-items: center;
+    left: -5px;
+    top: -4px;
+    padding-left: 10px;
+}
+
+.character-header {
+    width: 130px;
+}
+
+.task-header {
+    width: 400px;
+}
+
+.reset-header {
+    width: 150px;
+}
+
+#weekly-panel {
+    width: 800px;
+    position: relative;
+}
+
+@media (width <= 800px) {
+    #info-panel {
+        padding-top: 45px;
+    }
+}

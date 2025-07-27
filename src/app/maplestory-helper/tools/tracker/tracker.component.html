@@ -1,0 +1,65 @@
+<div class="page-container">
+    <div class="panel" id="info-panel">
+        <div class="add button" (click)="clearData()">Reset Everything</div>
+        Dailies reset on <b>{{daily_reset.toLocaleString('en-US', { weekday: 'long', hour: 'numeric', minute: 'numeric', hour12: true})}}</b> in <b>{{getDailyTimeDifference()}}</b><br>
+        Event reset is on <b>{{event_reset.toLocaleString('en-US', { weekday: 'long', hour: 'numeric', minute: 'numeric', hour12: true})}}</b><br>
+        Weekly bosses, Culvert, and Flag reset on <b>{{boss_reset.toLocaleString('en-US', { weekday: 'long', hour: 'numeric', minute: 'numeric', hour12: true})}}</b><br>
+        Dojo and Arcane river weeklies reset on <b>{{sunday_reset.toLocaleString('en-US', { weekday: 'long', hour: 'numeric', minute: 'numeric', hour12: true})}}</b><br>
+    </div>
+    <div class="top-container">
+        <div class="panel" id="daily-panel" [formGroup]="form">
+            <div class="header">Daily Tasks</div>
+            <div class="add button" (click)="addDaily()">Add Task</div>
+            <table formArrayName="dailies">
+                <tr>
+                    <th>Done</th>
+                    <th class="character-header">Character</th>
+                    <th class="task-header">Task</th>
+                </tr>
+                @for (daily of dailies.controls; track daily; let i = $index) {
+                    <tr [formGroupName]="i">
+                        <td><input type="checkbox" formControlName="done"></td>
+                        <td><input formControlName="character" class="character-input" maxlength="12"></td>
+                        <td class="daily-task-cell">
+                            <input formControlName="task" class="daily-task">
+                            <div class="delete button" (click)="deleteDaily(i)">X</div>
+                            <div class="move button" (click)="moveDaily(i, -1)">&#x25B2;</div>
+                            <div class="move button" (click)="moveDaily(i, 1)">&#x25BC;</div>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+        <div class="panel" id="weekly-panel" [formGroup]="form">
+            <div class="header">Weekly Tasks</div>
+            <div class="add button" (click)="addWeekly()">Add Task</div>
+            <table formArrayName="weeklies">
+                <tr>
+                    <th>Done</th>
+                    <th class="character-header">Character</th>
+                    <th class="reset-header">Reset Type</th>
+                    <th class="task-header">Task</th>
+                </tr>
+                @for (weekly of weeklies.controls; track weekly; let i = $index) {
+                    <tr [formGroupName]="i">
+                        <td><input type="checkbox" formControlName="done"></td>
+                        <td><input formControlName="character" class="character-input" maxlength="12"></td>
+                        <td>
+                            <select formControlName="resetType">
+                                <option value="Sunday/Monday">Sunday/Monday</option>
+                                <option value="Event Reset">Event Reset</option>
+                                <option value="Weekly Boss">Weekly Boss</option>
+                            </select>
+                        </td>
+                        <td class="daily-task-cell">
+                            <input formControlName="task" class="daily-task">
+                            <div class="delete button" (click)="deleteWeekly(i)">X</div>
+                            <div class="move button" (click)="moveWeekly(i, -1)">&#x25B2;</div>
+                            <div class="move button" (click)="moveWeekly(i, 1)">&#x25BC;</div>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,131 @@
+#background {
+    position:fixed;
+    background-color: var(--lightgray);
+    z-index: -1;
+}
+
+#side-nav {
+    background-color: var(--darkgray);
+    width: var(--maplestory-nav-width);
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 200;
+}
+
+#page {
+    margin-left: var(--maplestory-nav-width);
+}
+
+#title {
+    color: var(--white);
+    font-size: 1.25rem;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.page-container {
+    padding: 40px;
+    padding-top: 150px;
+}
+
+.panel {
+    background-color: white;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 40px;
+}
+
+/* Table */
+
+.cell {
+    padding-left: 10px;
+    padding-right: 5px;
+    height: 40px;
+    box-sizing: border-box;
+    margin-right: 1px;
+    margin-bottom: 1px;
+    position: relative;
+    line-height: 0.85rem;
+}
+
+.table {
+    display: flex;
+    margin-bottom: 40px;
+}
+
+form {
+    display: flex;
+}
+
+.header {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--black);
+    flex: 0 0 100%;
+}
+
+table {
+    border-spacing: 1px;
+}
+
+th, td {
+    padding: 5px 10px;
+}
+
+th {
+    text-align: left;
+    background-color: var(--table-header-background-dark);
+    color: var(--white);
+}
+
+tr {
+    background-color: var(--table-row-background-light-alternate);
+}
+
+tr:nth-child(even) {
+    background-color: var(--table-row-background-light);
+}
+
+.icon {
+    margin-left: -5px;
+    margin-right: 10px;
+}
+
+@media (width <= 800px) {
+    #side-nav {
+        width: 100vw;
+        height: 70px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding-left: 10px;
+        padding-right: 5px;
+        padding-bottom: 10px;
+        gap: 10px;
+        box-sizing: border-box;
+    }
+
+    #title {
+        margin-top: 5px;
+        margin-bottom: -5px;
+        flex: 0 0 100%;
+    }
+    
+    #page {
+        margin-left: 0;
+    }
+
+    .page-container {
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-top: 120px;
+    }
+
+    td {
+        font-size: 0.8rem;
+    }
+}

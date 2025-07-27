@@ -1,0 +1,285 @@
+/* Menu */
+
+#clear {
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+#menu {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#server {
+    margin-top: 10px;
+    flex: 0 0 100%;
+}
+
+#instructions {
+    flex: 0 0 100%;
+    margin-bottom: 5px;
+    font-size: 1.1rem;
+}
+
+/* Table */
+
+form {
+    display: flex;
+}
+
+#menu {
+    margin-bottom: 40px;
+}
+
+.boss-header, .meso-header {
+    background-color: var(--table-header-background-dark);
+    color: var(--white);
+}
+
+.boss-row, .meso-row {
+    background-color: var(--table-row-background-dark);
+    color: var(--maplestory-dark-font);
+}
+
+.boss-header, .boss-row {
+    width: 200px;
+}
+
+.meso-header, .meso-row {
+    width: 130px;
+}
+
+.character-header, .character-row {
+    width: 110px;
+}
+
+.character-input {
+    text-align: center;
+    font-size: 0.7rem;
+    width: 90px;
+    box-sizing: border-box;
+    outline: none;
+    color: var(--maplestory-dark-font);
+}
+
+.character-header {
+    background-color: var(--table-header-background-light);
+    position: relative;
+}
+
+.character-row {
+    background-color: var(--table-row-background-light);
+}
+
+.hover-menu {
+    display: none;
+    width: calc(100% + '0px');
+    gap: 4px;
+    height: 100%;
+    position: absolute;
+    left: -31px;
+    top: -30px;
+    box-sizing: border-box;
+}
+
+.character-header:hover .hover-menu {
+    display: flex;
+    justify-content: space-between;
+}
+
+.move {
+    background-color: var(--maplestory-move-color);
+    width: 30px !important;
+}
+
+.move:hover {
+    background-color: var(--maplestory-move-hover-color);
+}
+
+.clone {
+    background-color: var(--maplestory-add-color);
+}
+
+.clone:hover {
+    background-color: var(--maplestory-add-hover-color);
+}
+
+.delete {
+    background-color: var(--maplestory-delete-color);
+}
+
+.delete:hover {
+    background-color: var(--maplestory-delete-hover-color);
+}
+
+.button {
+    font-size: 0.8rem;
+    height: 25px;
+    width: 50px;
+    color: var(--white);
+}
+
+.add {
+    background-color: var(--maplestory-add-color);
+    width: auto;
+    height: 30px;
+    font-size: 1rem;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+.add:hover {
+    background-color: var(--maplestory-add-hover-color);
+}
+
+.speech-bubble {
+    color: var(--maplestory-dark-font);
+    position: absolute;
+    top: -20px;
+    left: calc(100% - 25px);
+    background-color: var(--white);
+    white-space: nowrap;
+    padding: 5px;
+    border: 1px solid var(--table-header-background-dark);
+    display: none;
+    line-height: 16px;
+    z-index: 100;
+    text-wrap: wrap;
+    max-width: 150px;
+}
+
+.cell:hover .speech-bubble {
+    display: flex;
+    pointer-events: none;
+}
+
+#total-header {
+    font-size: 1.25rem;
+    font-weight: bold;
+    background-color: var(--maplestory-blue);
+    display: inline-block;
+    color: var(--white);
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+input[disabled] {
+    filter: brightness(0.6);
+}
+
+.row-darken {
+    background-color: var(--table-row-background-dark-alternate);
+}
+
+.row-darken-right {
+    background-color: var(--table-row-background-light-alternate);
+}
+
+label {
+    margin-left: 5px;
+    margin-top: 3px;
+    user-select: none;
+}
+
+.boss-icon {
+    height: 80%;
+    margin-left: -5px;
+    margin-right: 10px;
+}
+
+.cell-label {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: -5px;
+    top: -4px;
+    padding-left: 14px;
+}
+
+.party-size {
+    outline: none;
+    color: var(--maplestory-dark-font);
+    width: 30px;
+    margin-left: 10px;
+    padding-left: 10px;
+    height: 1rem;
+    padding-right: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+/* Extra Income */
+
+.extra-income {
+    flex: 0 0 100%;
+}
+
+.extra-income-container {
+    flex-wrap: wrap;
+}
+
+#level {
+    margin-left: 5px;
+    margin-bottom: 5px;
+    width: 50px;
+    padding-left: 5px;
+}
+
+#income-header {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+#bossing-header, #extra-header {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+    margin-top: 10px;
+}
+
+.results-character {
+    font-size: 1rem;
+}
+
+.invalid {
+    color: rgb(255, 127, 127);
+}
+
+/* Mobile CSS */
+
+@media (width <= 800px) {
+    #income-header {
+        font-size: 1.25rem;
+    }
+
+    .cell {
+        font-size: 0.8rem;
+    }    
+
+    .boss-header, .boss-row {
+        width: 160px;
+    } 
+
+    .meso-header, .meso-row {
+        width: 110px;
+    }
+    
+    #bossing-header, #extra-header {
+        font-size: 1.1rem;
+    }
+
+    #total-header {
+        font-size: 1rem;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .results-character {
+        font-size: 0.8rem;
+    }
+}

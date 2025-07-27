@@ -1,0 +1,23 @@
+table {
+    margin-bottom: 20px;
+}
+
+.boss {
+    background-color: rgb(191, 191, 255) !important;
+}
+
+.weekly{
+    background-color: rgb(104, 197, 104) !important;
+}
+
+.sticky {
+    position: sticky;
+    top: 110px;
+}
+
+@media (width <= 800px) {
+    .sticky {
+        position: sticky;
+        top: 105px;
+    }
+}

@@ -1,0 +1,118 @@
+<div class="page-container">
+    <div id="menu" class="panel">
+        <div id="clear" class="add button" (click)="clearData()">Clear Storage and Refresh</div>
+        <div id="instructions">
+            Last updated December 22, 2024 (Added Limbo)<br><br>
+            The first five rows are daily bosses and the numbers next to the checkboxes represents the number of times you clear the boss in a week.<br>
+            All other rows are weekly bosses and the numbers next to the checkboxes represents the number of people in the party.<br>
+            Select all the weekly bosses you can clear, and it will calculate the most mesos out of the 14 weekly boss crystals you can sell per character.<br>
+        </div>
+        <div class="add button" (click)="addColumn()">Add empty character</div>
+        <div class="add button" (click)="addColumn('cra')">Add CRA mule</div>
+        <div class="add button" (click)="addColumn('akechi')">Add Akechi/CPap mule</div>
+        <div class="add button" (click)="addColumn('nlomien')">Add NLomien mule</div>
+        <div class="add button" (click)="addColumn('ctene')">Add CTene mule</div>
+        <div id="server" [formGroup]="bossForm">
+            <input type="radio" id="reboot" name="server" value="reboot" formControlName="server">Reboot/Heroic
+            <br>
+            <input type="radio" id="regular" name="server" value="regular" formControlName="server">Regular
+        </div>
+    </div>
+    <div class="table">
+        <div>
+            <div class="cell boss-header vertical-align">
+                Boss
+            </div>
+            @for (boss of bosses; track boss) {
+                <div class="cell boss-row vertical-align" [ngClass]="{ 'row-darken': boss.darken }">
+                    <img class="boss-icon" [src]="'Boss Crystals/' + boss.url + '.png'" loading="lazy">
+                    {{boss.name}}
+                </div>
+            }
+        </div>
+        <div>
+            <div class="cell meso-header vertical-align">
+                Mesos
+            </div>
+            @for (boss of bosses; track boss) {
+                <div class="cell meso-row vertical-align" [ngClass]="{ 'row-darken': boss.darken }">
+                    {{(bossForm.get('server').value == 'reboot' ? boss.meso : boss.meso/5) | numberWithCommas}}
+                </div>
+            }
+        </div>
+        <form [formGroup]="bossForm">
+            @for (character of columns.controls; track character; let i = $index) {
+                <div formArrayName="columns">
+                    <ng-container [formGroupName]="i">
+                        <div class="cell character-header vertical-align">
+                            <input type="text" class="character-input" placeholder="Name" formControlName="character" maxlength="14">
+                            <div class="hover-menu">
+                                <div class="move button" (click)="move(i, 0)">&larr;</div>
+                                <div class="clone button" (click)="clone(i)">Clone</div>
+                                <div class="delete button" (click)="delete(i)">Delete</div>
+                                <div class="move button" (click)="move(i, 1)">&rarr;</div>
+                            </div>
+                        </div>
+                        @for (boss of character.get('character_bosses')['controls']; track boss; let j = $index) {
+                            <div formArrayName="character_bosses">
+                                <div class="cell character-row vertical-align" [formGroupName]="j" [ngClass]="{ 'row-darken-right': isDarkCell(boss.value.name) }">
+                                    <label class="cell-label">
+                                        <input type="checkbox" formControlName="checked">
+                                        @if (boss.value.daily) {
+                                            <input type="number" formControlName="weekly_clears" min="1" max="7" class="party-size" (focusout)="limitValue($event, 1, 7, 1)">
+                                        } @else if (boss.value.name == 'Lotus (Extreme)') {
+                                            <input type="number" formControlName="party_size" min="1" max="2" class="party-size" (focusout)="limitValue($event, 1, 2, 1)">
+                                        } @else {
+                                            <input type="number" formControlName="party_size" min="1" max="6" class="party-size" (focusout)="limitValue($event, 1, 6, 1)">
+                                        }
+                                        <div class="speech-bubble">
+                                            {{
+                                                (character.get('character').value ? character.get('character').value : 'Column ' + (i+1)) + ': ' +
+                                                getSplitMesos(boss)
+                                            }}
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        }
+                    </ng-container>
+                </div>
+            }
+        </form>
+    </div>
+    <div id="results" class="panel">
+        <div id="income-header">Weekly Income</div>
+        <div id="bossing-header">Bossing</div>
+        @for (character of columns.controls; track character; let i = $index) {
+            <div class="results-character">
+                {{(character.get('character').value ? character.get('character').value : 'Unnamed character (column ' + (i+1) + ')') + ': ' + calculateIncome(i)}}
+            </div>
+        }
+        <div id="extra-header">Extra Income</div>
+        <form [formGroup]="extraForm">
+            <div class="extra-income-container">
+                <div class="extra-income">
+                    <label for="level">Highest Level</label>
+                    <input type="number" formControlName="highest_level" min="1" max="300" id="level" name="level" (focusout)="limitValue($event, 1, 300, 280)">
+                </div>
+                <div class="extra-income">
+                    <input type="checkbox" id="ursus" name="ursus" formControlName="ursus">
+                    <label for="ursus">Ursus 
+                        @if (extraForm.get('ursus').value && extraForm.get('highest_level').value) {
+                            <span>{{ '(' + (extraForm.get('highest_level').value | ursus:bossForm.get('server').value | numberWithCommas) + ' Mesos)' }}</span>
+                        }
+                    </label>
+                </div>
+                <div class="extra-income">
+                    <input type="checkbox" id="maple-tour" name="maple-tour" formControlName="maple_tour">
+                    <label for="maple-tour">Maple Tour 
+                        @if (extraForm.get('maple_tour').value) {
+                            <span>{{ '(' + (bossForm.get('server').value | mapleTour | numberWithCommas) + ' Mesos)' }}</span>
+                        }
+                    </label>
+                </div>
+            </div>
+        </form>
+        <div id="total-header">Total: {{(totalIncome | numberWithCommas) + ' Mesos [ Crystals: '}}<span [ngClass]="{ 'invalid': crystals > 180 }">{{crystals}}</span> / 180 ]</div>
+    </div>
+</div>

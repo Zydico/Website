@@ -1,0 +1,40 @@
+.side-nav-item {
+    width: 100%;
+    color: var(--white);
+    font-size: 1rem;
+    padding: 14px;
+    box-sizing: border-box;
+    background-color: var(--maplestory-nav-button-dark);
+    margin-bottom: 1px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.side-nav-item:hover {
+    background-color: var(--maplestory-nav-button-light);
+}
+
+.selected {
+    padding-left: 25px;
+    background-color: var(--maplestory-nav-button-light);
+    font-weight: bold;
+}
+
+@media (width <= 800px) {
+    .side-nav-item {
+        border-radius: 5px;
+        padding: 5px 10px;
+        box-sizing: border-box;
+        font-size: 0.75rem;
+    }
+    .selected {
+        background-color: var(--maplestory-nav-button-light);
+        font-weight: bold;
+    }
+}
+
+@media (width <= 400px) {
+    .side-nav-item {
+        font-size: 0.5rem;
+    }
+}

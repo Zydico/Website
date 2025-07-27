@@ -1,0 +1,43 @@
+#space-background {
+    z-index: -1;
+    background-color: var(--blue);
+    position: fixed;
+    left: 0;
+    top: 0;
+}
+
+#content {
+    color: var(--white);
+    text-align: left;
+}
+
+#name {
+    font-size: 4rem;
+    margin-bottom: -0.75rem;
+}
+
+#name-divider {
+    background-color: var(--white);
+    width: 90%;
+    height: 0.2rem;
+    margin-bottom: 0.5rem;
+}
+
+#occupation {
+    font-size: 1.75rem;
+}
+
+@media (width <= 600px) {
+    #name {
+        font-size: 3rem;
+        margin-bottom: -0.75rem;
+    }
+
+    #name-divider {
+        height: 0.15rem;
+    }
+
+    #occupation {
+        font-size: 1.5rem;
+    }
+}
