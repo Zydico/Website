@@ -11,7 +11,8 @@ import { Router } from '@angular/router';
 export class ProjectComponent {
   @Input() name: string;
   @Input() description: string;
-  @Input() link: string;
+  @Input() link?: string;
+  @Input() actualLink?: string;
   @Input() imageUrl: string;
 
   constructor(private router: Router) {
@@ -20,6 +21,8 @@ export class ProjectComponent {
   changePage(): void {
     if (this.link) {
       this.router.navigate([this.link]);
+    } else if (this.actualLink) {
+      window.location.href = this.actualLink;
     }
   }
 }
